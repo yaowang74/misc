@@ -1,0 +1,399 @@
+\title{Distributed Energy Consumption Forecasting using ARIMAX}
+\date{\today}
+\author{Wang Yao}
+\documentclass[12pt]{article}
+\special{papersize=8.5in,11in}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{algorithmic}
+%\usepackage[section]{algorithm} % numbering the algorithm by section
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Scala,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4
+}
+
+\begin{document}
+	\maketitle
+	\section{Introduction}
+	asdf
+    \section{Function Details}
+    Function details
+	\begin{lstlisting}
+	package com.honeywell.sapt.ntl.bh.arimax
+    
+    import scalaglm.Lm
+    import com.cloudera.sparkts.models.ARIMA
+    import com.typesafe.config.{ Config, ConfigFactory }
+    
+    import breeze.linalg._
+    import org.apache.spark.mllib.linalg.{ Vector, Vectors }
+    import org.apache.spark. { SparkConf, SparkFiles }
+    import org.apache.spark.sql.SparkSession
+    import org.apache.spark.sql.functions._
+    import org.apache.spark.sql.Row
+    import scala.collection.mutable._
+    import org.slf4j.LoggerFactory
+    
+    import java.io._
+    import scala.io._
+    import java.util.Date
+    import java.util.Calendar
+    import java.text.SimpleDateFormat
+    
+    /** Definition for energy consumption forecasting instance. */
+    object EnergyConsumption {
+    
+       	val startTimeMillis = System.nanoTime()
+       	val logger = LoggerFactory.getLogger("NTL-BH-ARIMAX")
+       	val sw = new StringWriter
+    
+       	/**
+      	 * Train linear regression model with ARIMA error terms for each meter
+      	 * 
+      	 * @param meter_name the meter id
+      	 * @param mainArray returned array 
+      	 * @param config_params a tuple that first component must be one of "maxp", "maxd", and "maxq", and value of each type
+      	 * @paran Array input array  
+      	 * 
+      	 * @return array containing meter name, external predictors and 7-day time series that representing predicted energy consumption for each meter.
+      	 */
+       	def trainAndPredictModel(meter_name: String, mainArray: Array[(String, Double, String, Double, Double, Double, Double, Double, Int, Int)], config_params: scala.collection.mutable.Map[String, Double]) : Array[(String, String, String, String, String, String, String, String, String, String, String)] = {
+       		val dataArray = mainArray
+    
+       		//Training
+       		//Step-A1: For each meter train the Linear Regression
+       		//(kwh and 6 weather features and weekend indicator) on 30 days of data (1st to 30th)
+       		val lr_target_vec = DenseVector(dataArray.map(_._2.asInstanceOf[Double]))
+    
+       		val train_days_count = config_params("train_days_count").asInstanceOf[Int]
+       		val forecast_duration = config_params("forecast_duration").asInstanceOf[Int]
+       		val total_days = config_params("total_days").asInstanceOf[Int]
+    
+       		val std_dev_value = config_params("std_dev_value")
+    
+       		val maxp = config_params("maxp").asInstanceOf[Int]
+       		val maxd = config_params("maxd").asInstanceOf[Int]
+       		val maxq = config_params("maxq").asInstanceOf[Int]
+    
+       		if ( lr_target_vec.size >= train_days_count && dataArray.size >= total_days ) {			
+       			val features_arr = dataArray.map(b => (b._4, b._5, b._6, b._7, b._8, b._9.asInstanceOf[Double], b._10.asInstanceOf[Double]))
+    
+       			val lr_target_vec_slice = lr_target_vec(0 to (train_days_count - 1))
+       			val lr_features_mtx_train = DenseMatrix(features_arr: _*)
+       			val lr_features_mtx_train_slice = lr_features_mtx_train(0 to (train_days_count - 1), 0 to (forecast_duration - 1))
+    
+       			val lm = Lm(lr_target_vec_slice, lr_features_mtx_train_slice)
+    
+       			//Step-A2: Score the Linear Regression model on the same data set that is used for the training
+       			val lr_pred_vec = lm.predict(lr_features_mtx_train_slice).fitted
+    
+       			//Step-A3: Calculate the residual
+       			val residual_vec = lr_target_vec_slice - lr_pred_vec
+    
+       			//Forecasting/Prediction
+       			//Step-A:  Linear Regression to score (31th to 37th) 7 days of energy consumption
+       			val lr_features_mtx = DenseMatrix(features_arr: _*)
+       			val lr_features_mtx_slice = lr_features_mtx((total_days - forecast_duration) to (total_days - 1), 0 to (forecast_duration - 1))
+       			val lr_predict_vec = lm.predict(lr_features_mtx_slice).fitted
+    
+       			val std_deviation = breeze.stats.stddev(residual_vec)
+    
+       			val residual_mean = breeze.stats.mean(residual_vec)
+    
+       			val arima_residual_vec_array_buffer = ArrayBuffer.empty[DenseVector[Double]]
+       			arima_residual_vec_array_buffer += DenseVector.fill(forecast_duration) { residual_mean }
+       			
+       			if ( std_deviation >= std_dev_value ) {
+       				try {
+       					//Step-B: Train the ARIMA with the Linear Regression residula vector as input (30 days)
+       					val residual_vec_new = org.apache.spark.mllib.linalg.Vectors.dense(residual_vec.toArray)
+       					val trainedARIMA = ARIMA.autoFit(ts = residual_vec_new, maxP = maxp, maxD = maxd, maxQ = maxq)
+    
+       					//Forecasting/Prediction
+       					//Step-B: ARIMA to score 7 days of residual (Spark-TS ARIMA.forecast)
+       					//(We need to assume predictor is unknown) (input 24th to 30th from the residual)
+    
+       					val residual_mlvec = org.apache.spark.mllib.linalg.Vectors.dense((DenseVector(residual_vec.toArray)((train_days_count - forecast_duration) to (train_days_count - 1))).toArray)
+       					arima_residual_vec_array_buffer += DenseVector(trainedARIMA.forecast(residual_mlvec, forecast_duration).toArray)(forecast_duration to ((2 * forecast_duration) - 1))
+    
+       				} catch {
+       					case e: Exception => {       	
+       						logger.warn("ARIMA autoFit failed for meter: '" + meter_name + "'. Forecasting using residual_mean.");
+       					}
+       				}
+       			}
+    
+       			//Step-c: ARIMAX score = output from Step-A + output mean of residual for 7 days
+    
+       			val arima_residual_vec = arima_residual_vec_array_buffer(arima_residual_vec_array_buffer.size - 1)
+       			val arimax_vec = lr_predict_vec + arima_residual_vec
+    
+       			val mainArrayStringElements = mainArray.map(b => (b._1.toString, b._2.toString, b._3.toString, b._4.toString, b._5.toString, b._6.toString, b._7.toString, b._8.toString, b._9.toString, b._10.toString))
+       			val mainArrayDenseMatrix = DenseMatrix(mainArrayStringElements: _*)
+       			val mainArrayDenseMatrix_7Days = mainArrayDenseMatrix(train_days_count to (total_days - 1), ::)
+    
+       			val arimax_str = arimax_vec.map(_.toString)
+       			val arimax_dm = DenseMatrix(arimax_str.toArray)
+       			val finalDMatrix = DenseMatrix.horzcat(mainArrayDenseMatrix_7Days, arimax_dm.t)
+    
+       			val Forecast_Array = ArrayBuffer.empty[(String, String, String, String, String, String, String, String, String, String, String)]
+    
+       			for ( i <- 0 until finalDMatrix.rows ) {
+       				Forecast_Array += ((finalDMatrix(i, 0), finalDMatrix(i, 1), finalDMatrix(i, 2), finalDMatrix(i, 3), finalDMatrix(i, 4), finalDMatrix(i, 5), finalDMatrix(i, 6), finalDMatrix(i, 7), finalDMatrix(i, 8), finalDMatrix(i, 9), finalDMatrix(i, 10)))
+       			}
+    
+       			logger.info("Forecasting for meter: '" + meter_name + "' successful");
+       			return Forecast_Array.toArray
+       		} else {
+       			logger.warn("Forecasting failed due to insufficient data.  meter_name : '" + meter_name + "'");
+       			return Array.empty[(String, String, String, String, String, String, String, String, String, String, String)]
+       		}
+       	}
+    
+       	/**
+      	 * Read parameter values form configuration file, console output, and exception handling
+      	 * 
+      	 * @param args a strint that is the configuration file name
+      	 * 
+      	 * @return no return type
+      	 */
+       	def inputOutputFunctions(args: Array[String]): Unit =  {
+       		val conf = new SparkConf()
+       		conf.set("spark.ui.port", (4040 + scala.util.Random.nextInt(1000)).toString)
+    
+       		val spark = SparkSession.builder().config(conf).appName("NTL-BH-ARIMAX").enableHiveSupport().getOrCreate()
+       		logger.info(s"Starting Machine Learning Model Application")
+       		logger.info(s"Loading the config file...")
+    
+       		try{
+       			val reader = spark.sparkContext.textFile(args(0)).toLocalIterator.mkString
+       			val confReader = ConfigFactory.parseString(reader)
+    
+       			try{
+       				val app_name = confReader.getString("app_name")
+       				val input_source = confReader.getString("input.source")
+       				val input_format = confReader.getString("input.format")
+       				val input_database = confReader.getString("input.database")
+       				val input_source_table = confReader.getString("input.source_table")
+       				val input_hive_columns = confReader.getString("input.hive_columns")
+    
+       				try{
+       					val runDateString = args(1).toString
+       					val dateFormat = new SimpleDateFormat("yyyy-MM-dd")
+       					val runDate = dateFormat.parse(runDateString)
+    
+       					val currentnow = Calendar.getInstance().getTime()
+       					val TimeFormat = new SimpleDateFormat("HH-mm-ss")
+       					val datetimeformatstring = runDateString + "_" + (TimeFormat.format(currentnow)).toString
+    
+       					val train_days_count = (confReader.getString("model_parameters.train_days_count")).toInt
+       					val forecast_duration = (confReader.getString("model_parameters.forecast_duration")).toInt
+       					val cal = Calendar.getInstance()
+       					cal.setTime(runDate)
+       					cal.add(Calendar.DAY_OF_MONTH, -(train_days_count + forecast_duration))
+       					val from_date = dateFormat.format(cal.getTime())
+       					val total_days = train_days_count + forecast_duration
+    
+       					val std_dev_value = (confReader.getString("model_parameters.standard_deviation")).toDouble
+    
+       					val maxp = (confReader.getString("arimax_features.maxP")).toInt
+       					val maxd = (confReader.getString("arimax_features.maxD")).toInt
+       					val maxq = (confReader.getString("arimax_features.maxQ")).toInt
+    
+       					val output_save_mode = confReader.getString("output_save_mode.mode")
+       					val conf_output_path = (confReader.getString("output.path"))
+       					val output_path_array = ArrayBuffer.empty[String]
+    
+       					if ( conf_output_path.endsWith("/") ) {
+       						output_path_array += conf_output_path + datetimeformatstring
+       					} else {
+       						output_path_array += conf_output_path + "/" + datetimeformatstring
+       					}
+    
+       					val output_path = output_path_array((output_path_array.size) - 1)
+    
+       					val config_params = scala.collection.mutable.Map[String, Double]()
+       					config_params += ("train_days_count" -> train_days_count)
+       					config_params += ("forecast_duration" -> forecast_duration)
+       					config_params += ("std_dev_value" -> std_dev_value)
+       					config_params += ("maxp" -> maxp)
+       					config_params += ("maxd" -> maxd)
+       					config_params += ("maxq" -> maxq)
+       					config_params += ("total_days" -> total_days)
+       					logger.info(s"Configurations loaded successfully")
+    
+       					import spark.implicits._
+    
+       					try {
+       						if (input_source.toLowerCase() == "hive" && input_format.toLowerCase() == "hive") {
+    
+       							try{
+       								val input_query = "SELECT " + input_hive_columns + " FROM " + input_database + "." + input_source_table 
+       								logger.info(s"Reading the input data from the hive source: '" + input_database + "." + input_source_table + "'")
+    
+       								val inputdf = spark.sql(input_query).withColumnRenamed("readings_date", "date")
+       								val in_no_meters = inputdf.select("meter_name").distinct.count
+       								logger.info(s"Input data loaded successfully with '" + in_no_meters.toString + "' meters")
+    
+       								val df = inputdf.withColumn("date", unix_timestamp(col("date"), "yyyy-MM-dd").cast("timestamp").cast("date"))
+       								logger.info(s"Filtering data based on the date ranges...")
+    
+       								df.registerTempTable("df")
+       								val dataDF = spark.sql("SELECT * FROM df WHERE date >='" + from_date + "' AND date < '" + runDateString + "'")
+    
+       								if ( dataDF.count > 0 ) {
+       									val dataDF_ = dataDF.withColumn("date", col("date").cast("String"))
+       									logger.info(s"Training data and Testing data loaded successfully")
+    
+       									val dataRDD = dataDF_.rdd.map { case Row(a: String, b: Double, c: String, d: Double, e: Double, f: Double, g: Double, h: Double, i: Int, j: Int) => (a, (a, b, c, d, e, f, g, h, i, j)) }
+       									logger.info(s"RDD created from the dataframe")
+       									val dataGbyRDD = dataRDD.groupByKey.map { case (k, iteV) => (k, iteV.toArray) }
+       									logger.info(s"RDD groupByKey successful")
+    
+       									logger.info(s"Applying trainAndPredictModel for each meter...");
+    
+       									try{
+       										val trainAndPredictDF = dataGbyRDD.map { case (k, arrayV) => trainAndPredictModel(k, arrayV, config_params) }
+       										logger.info("Forecasting for all meters successful");
+       										val resultsRDD = trainAndPredictDF.flatMap(a => a.map(b => b))
+    
+       										val resultDF = resultsRDD.toDF("meter_name", "kwh", "date", "min_temperature_windchill_2m_f", "max_pressure_2m_mb", "min_wind_speed_10m_mph", "tot_precipitation_in", "tot_snowdepth_in", "avg_cloud_cover_tot_pct", "weekend_ind", "arimax")
+       										logger.info("Results dataframe created");
+       										resultDF.show()
+       										logger.info("Saving results to the path: '" + output_path + "'")
+    
+       										try{
+       											if (output_save_mode == "overwrite") {
+       												resultDF.write.format("com.databricks.spark.csv").mode("overwrite").option("header", "true").save(output_path)
+       											}
+       											else if (output_save_mode == "append") {
+       												resultDF.write.format("com.databricks.spark.csv").mode("append").option("header", "true").save(output_path)
+       											}
+       											else if (output_save_mode.trim.isEmpty) {
+       												resultDF.write.format("com.databricks.spark.csv").option("header", "true").save(output_path)
+       											}
+       											else {
+       												logger.error("Output save mode conf value error. Input should be 'overwrite', 'save', or ''")
+       											}
+    
+       											val no_meters = resultDF.select("meter_name").distinct.count
+       											logger.info("Forecast results saved successfully for '" + no_meters.toString +"' meters");
+       											val endTime = (System.nanoTime() - startTimeMillis) / (1000000000.0)
+       											logger.info("Total Run time: " + endTime.toString + " seconds")
+       										} catch {
+       											case e: Exception =>{
+       												e.printStackTrace(new PrintWriter(sw))
+       												logger.error("Saving results failed to write to the path '"+ output_path + "'.  Stack trace : " + sw.toString)
+       												spark.stop
+       												sys.exit(1)
+       											}
+       										}
+       									} catch {
+       										case e: Exception =>{
+       											e.printStackTrace(new PrintWriter(sw))
+       											logger.error("Applying trainAndPredictModel failed. Stack trace : " + sw.toString)
+       											spark.stop
+       											sys.exit(1)
+       										}
+       									}
+       								} else {
+       									logger.error("Empty dataframe of training, testing data. Exiting the Machine Learning Scala Application...")
+       								}
+       							} catch {
+       								case e: Exception => {
+       									e.printStackTrace(new PrintWriter(sw))
+       									logger.error("Loading data from the hive table failed. Stack trace : " + sw.toString)
+       									spark.stop
+       									sys.exit(1)
+       								}
+       							}
+       						} else {
+       							logger.error("Invalid Input Data Source. Exiting Application...")
+       							spark.stop
+       							sys.exit(1)					
+       						}
+       					} catch {
+       						case e: Exception => {
+       							e.printStackTrace(new PrintWriter(sw))
+       							logger.error("Unhandled exception. Stack trace : " + sw.toString)
+       							spark.stop
+       							sys.exit(1)
+       						}
+       					}
+       				} catch {
+       					case e: Exception =>{
+       						e.printStackTrace(new PrintWriter(sw))
+       						logger.error("Error loading the rundate config parameters. Stack trace : " + sw.toString)
+       						spark.stop
+       						sys.exit(1)					
+       					}
+       				}
+       			} catch {
+       				case e: Exception =>{
+       					e.printStackTrace(new PrintWriter(sw))
+       					logger.error("Error Loading config parameters. Stack trace : " + sw.toString)
+       					spark.stop
+       					sys.exit(1)				
+       				}
+       			}
+       		} catch {
+       			case e: Exception =>{
+       				e.printStackTrace(new PrintWriter(sw))
+       				logger.error("Unable to read conf file. Stack trace : " + sw.toString)
+       				spark.stop
+       				sys.exit(1)
+       			}
+       		}		
+       	}
+    
+       	/**
+      	 * main entrance of the program
+      	 * 
+      	 * @param args user specified argument, should be configuration file name
+      	 * 
+      	 * @return no return type
+      	 */
+       	def main(args: Array[String]): Unit = {
+       		try{
+       			inputOutputFunctions(args)
+       			logger.info("Exiting the Machine Learning Scala Application...")
+       		}catch{
+       			case e: Exception =>{
+       				e.printStackTrace(new PrintWriter(sw))
+       				logger.error("Unhandled exception. Stack trace : " + sw.toString)
+       				sys.exit(1)
+       			}
+       		}
+       		logger.info("The job completed successfully")
+       	}
+    }
+	\end{lstlisting}
+
+	
+\end{document}

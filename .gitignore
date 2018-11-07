@@ -1,4 +1,5 @@
-/doc/res.cls
-/doc/resume_YaoWang_2018.log
-/doc/resume_YaoWang_2018.pdf
-/doc/resume_YaoWang_2018.synctex.gz
+*.log
+*.aux
+*.out
+*.pdf
+*.synctex.gz
