@@ -95,7 +95,19 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		python setup.py install
 		cd ..
 
-	You need to set an additional parameter "device" : "gpu". Sample test codes:
+	You need to set an additional parameter "device" : "gpu". From https://blog.csdn.net/lccever/article/details/80535058 
+	
+		git clone https://github.com/guolinke/boosting_tree_benchmarks.git
+		
+		cd boosting_tree_benchmarks/data
+		
+		wget "https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz"
+		
+		gunzip HIGGS.csv.gz
+		
+		python higgs2libsvm.py
+	
+	Sample test codes:
 	
 		import lightgbm as lgb
 		import time
