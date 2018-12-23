@@ -1,0 +1,405 @@
+Computing environment setup. This short instruction file on how to setup python machine learning environment is specificly 
+for Windows machine. On Linux machine, the steps will be simpler.
+
+1. install anaconda
+
+2. setup new env 
+	To create an environment with a specific version of Python:
+
+		conda create -n myenv python=3.6.7
+	
+	To see a list of available python versions first, use
+		
+		conda search "^python$"
+		
+	To create an environment with a specific version of a package:
+
+		conda create -n myenv scipy=0.15.0
+		conda install numpy scikit-learn
+	
+	For more details follow: https://conda.io/docs/user-guide/tasks/manage-environments.html
+	
+	To activate an environment called yourenvname:
+		
+		source activate yourenvname
+	
+	Install additional python packages, for example numpy:
+	
+		souce activate yourenvname
+		conda install numpy
+	
+	or
+		
+		conda install -n yourenvname numpy
+	
+	To deactivate a virtual environment named yourvenvname
+	
+		source deactivate
+	
+	To delete a no longer needed virtual environment called yourenvname
+		
+		conda remove -n yourenvname -all
+
+3. Once activate new python virtual environment, install h2o using
+	
+	conda install -c h2oai h2o=3.20.0.1
+
+	If you leave the h2o version blank, then the latest version will be installed.
+	 
+	For Python 3.6 users, H2O has tabulate>=0.75 as a dependency; however, there is no tabulate 
+	available in the default channels for Python 3.6. This is available in the conda-forge channel. 
+	As a result, Python 3.6 users must add the conda-forge channel in order to load the latest version of H2O. 
+	This can be done by performing the following steps:
+	
+		conda create -n py36 python=3.6 anaconda
+		source activate py36
+		conda config --append channels conda-forge
+		conda install -c h2oai h2o
+	 
+    for more details follow http://docs.h2o.ai/h2o/latest-stable/h2o-docs/downloading.html#install-on-anaconda-cloud
+
+4. Install Lightgbm, GPU version. Make sure your computer equiped with CUDA support GPU. Follow these steps:
+   https://lightgbm.readthedocs.io/en/latest/Installation-Guide.html#id18
+   
+	Install Git for Windows, CMake (3.8 or higher) and Visual Studio 2015 or newer, make sure all C++ compliers
+	are selected.
+
+	Install OpenCL for Windows. The installation depends on the brand (NVIDIA, AMD, Intel) of your GPU card.
+
+		For running on Intel, get Intel SDK for OpenCL.
+		For running on AMD, get AMD APP SDK.
+		For running on NVIDIA, get CUDA Toolkit.
+		Further reading and correspondence table: GPU SDK Correspondence and Device Targeting Table.
+
+	Install Boost Binary.  Note: Match your Visual C++ version:
+
+		Visual Studio 2015 -> msvc-14.0-64.exe,
+
+		Visual Studio 2017 -> msvc-14.1-64.exe.
+
+	Run the following commands:
+
+		Set BOOST_ROOT=C:\local\boost_1_64_0\
+		Set BOOST_LIBRARYDIR=C:\local\boost_1_64_0\lib64-msvc-14.0
+		git clone --recursive https://github.com/Microsoft/LightGBM
+		cd LightGBM
+		mkdir build
+		cd build
+		cmake -DCMAKE_GENERATOR_PLATFORM=x64 -DUSE_GPU=1 ..
+		cmake --build . --target ALL_BUILD --config Release
+
+	Note: C:\local\boost_1_64_0\ and C:\local\boost_1_64_0\lib64-msvc-14.0 are locations of your Boost binaries. You also can set them to the environment variable to avoid Set ... commands when build.
+	
+	Install python package:
+		cd ../python-package/
+		python setup.py install
+		cd ..
+
+	You need to set an additional parameter "device" : "gpu". Sample test codes:
+	
+		import lightgbm as lgb
+		import time
+		 
+		 
+		params = {'max_bin': 63,
+		'num_leaves': 255,
+		'learning_rate': 0.1,
+		'tree_learner': 'serial',
+		'task': 'train',
+		'is_training_metric': 'false',
+		'min_data_in_leaf': 1,
+		'min_sum_hessian_in_leaf': 100,
+		'ndcg_eval_at': [1,3,5,10],
+		'sparse_threshold': 1.0,
+		'device': 'gpu',
+		'gpu_platform_id': 0,
+		'gpu_device_id': 0}
+		 
+		 
+		dtrain = lgb.Dataset('data/higgs.train')
+		t0 = time.time()
+		gbm = lgb.train(params, train_set=dtrain, num_boost_round=10,
+				  valid_sets=None, valid_names=None,
+				  fobj=None, feval=None, init_model=None,
+				  feature_name='auto', categorical_feature='auto',
+				  early_stopping_rounds=None, evals_result=None,
+				  verbose_eval=True,
+				  keep_training_booster=False, callbacks=None)
+		t1 = time.time()
+		 
+		print('gpu version elapse time: {}'.format(t1-t0))
+		 
+		 
+		params = {'max_bin': 63,
+		'num_leaves': 255,
+		'learning_rate': 0.1,
+		'tree_learner': 'serial',
+		'task': 'train',
+		'is_training_metric': 'false',
+		'min_data_in_leaf': 1,
+		'min_sum_hessian_in_leaf': 100,
+		'ndcg_eval_at': [1,3,5,10],
+		'sparse_threshold': 1.0,
+		'device': 'cpu'
+		}
+		 
+		t0 = time.time()
+		gbm = lgb.train(params, train_set=dtrain, num_boost_round=10,
+				  valid_sets=None, valid_names=None,
+				  fobj=None, feval=None, init_model=None,
+				  feature_name='auto', categorical_feature='auto',
+				  early_stopping_rounds=None, evals_result=None,
+				  verbose_eval=True,
+				  keep_training_booster=False, callbacks=None)
+		t1 = time.time()
+		 
+		print('cpu version elapse time: {}'.format(t1-t0))
+
+        See: https://blog.csdn.net/lccever/article/details/80535058 
+		
+5.	(Optional for installing tensorflow under conda environment) Install CUDA and cuDNN (using CUDA 9.0 as example)
+		 Download CUDA from https://developer.nvidia.com/cuda-90-download-archive, 
+		 Including base installer and all patches, install them sequentially.
+		 
+		 Download cuDNN library from https://developer.nvidia.com/rdp/cudnn-download, choose
+			
+			Download cuDNN v7.4.2 (Dec 14, 2018), for CUDA 9.2
+		
+		Once the download is done, open the zip file and go into the binfolder.
+		You should see the cudnn64_7.dll file.
+
+		Now leave this folder opened and go open your CUDA folder in your C drive.
+		It should be around here “C:\Program Files\NVIDIA GPU Computing Toolkit”
+
+		You will see a CUDA folder in there so open it and go into the V9.0 folder.
+		From here you want to go into the binfolder.
+
+		Now you should be here :
+
+		“C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin”
+		Step 4:
+		CLICK and DRAG cudnn64_7.dll from the zip folder into this folder
+
+		“C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\bin”
+		Then it will ask if you want to merge, click yes.
+
+6.	Install tensorflow (as of DEC 22 2018, tensorflow does support python 3.7 yet.)
+		
+		conda install -c anaconda tensorflow-gpu
+		
+		Note: use the -c flag to specify the "anaconda" "channel"
+		
+		Check That TensorFlow is working with your GPU
+		
+			>>> import tensorflow as tf
+			>>> hello = tf.constant('Hello, TensorFlow!')
+			>>> sess = tf.Session()
+			>>> print(sess.run(hello))
+
+7.	Create a Jupyter Notebook Kernel for the new environment yourenvname
+	
+	With your yourenvname environment activated do,
+	
+		conda install ipykernel
+		python -m ipykernel install --user --name yourenvname --display-name "YourEnvName"
+		
+	For more details follow: https://ipython.readthedocs.io/en/stable/install/kernel_install.html
+		
+8. Install Keras
+
+	conda install keras-gpu
+	
+	MNIST example
+	Following are Python snippets you can copy into cells in your Jupyter notebook to setup 
+	and train LeNet-5 with MNIST digits data.
+
+	Import dependencies
+
+		import keras
+		from keras.datasets import mnist
+		from keras.models import Sequential
+		from keras.layers import Dense, Dropout
+		from keras.layers import Flatten,  MaxPooling2D, Conv2D
+		from keras.callbacks import TensorBoard
+
+	Load and process the MNIST data
+		(X_train,y_train), (X_test, y_test) = mnist.load_data()
+
+		X_train = X_train.reshape(60000,28,28,1).astype('float32')
+		X_test = X_test.reshape(10000,28,28,1).astype('float32')
+
+		X_train /= 255
+		X_test /= 255
+
+		n_classes = 10
+		y_train = keras.utils.to_categorical(y_train, n_classes)
+		y_test = keras.utils.to_categorical(y_test, n_classes)
+
+	Create the LeNet-5 neural network architecture
+
+		model = Sequential()
+		model.add(Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(28,28,1)) )
+		model.add(Conv2D(64, kernel_size=(3,3), activation='relu'))
+		model.add(MaxPooling2D(pool_size=(2,2)))
+		model.add(Dropout(0.25))
+		model.add(Flatten())          
+		model.add(Dense(128, activation='relu'))
+		model.add(Dropout(0.5))
+		model.add(Dense(n_classes, activation='softmax'))
+		Compile the model
+		model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+		Set log data to feed to TensorBoard for visual analysis
+		tensor_board = TensorBoard('./logs/LeNet-MNIST-1')
+		Train the model
+		model.fit(X_train, y_train, batch_size=128, epochs=15, verbose=1,
+				  validation_data=(X_test,y_test), callbacks=[tensor_board])
+
+	Look at the job run with TensorBoard:
+	
+		You will need "bleach" for TensorBoard so install it first,
+		
+			conda install bleach
+			
+		Start TensorBoard
+		
+			tensorboard --logdir=./logs --host localhost --port 8088
+
+9.	Install Pytorch
+
+		For more details follow: https://pytorch.org/get-started/locally/, for CUDA 9.0, use
+		
+			conda install pytorch torchvision -c pytorch
+		
+		For CUDA 10.0, use
+			
+			conda install pytorch torchvision cuda100 -c pytorch
+
+10.	Install XGBoost: for details follow: https://xgboost.readthedocs.io/en/latest/build.html#
+
+	Method 1: 
+	
+		Pre-built binary wheel for Python
+
+		If you are planning to use Python, consider installing XGBoost from a pre-built binary wheel, 
+		available from Python Package Index (PyPI). You may download and install it by running
+
+			# Ensure that you are downloading one of the following:
+			#   * xgboost-{version}-py2.py3-none-manylinux1_x86_64.whl
+			#   * xgboost-{version}-py2.py3-none-win_amd64.whl
+			pip3 install xgboost
+			
+		The binary wheel will support GPU algorithms (gpu_exact, gpu_hist) on machines with NVIDIA GPUs. 
+		However, it will not support multi-GPU training; only single GPU will be used. 
+		To enable multi-GPU training, download and install the binary wheel from 
+		
+			https://s3-us-west-2.amazonaws.com/xgboost-wheels/list.html.
+		
+		Currently, we provide binary wheels for 64-bit Linux and Windows.
+		
+	Method 2: Lighter version:
+	
+		Download XGBoost Windows x64 Binaries and Executables from: 
+		
+			http://www.picnet.com.au/blogs/guido/2016/09/22/xgboost-windows-x64-binaries-for-download/
+			
+		select GPU enabled.
+		
+		Then follow command:
+		
+			git clone hhttps://github.com/dmlc/xgboost.git
+			
+			copy libxgboost.dll (downloaded from previous step) into the xgboost/python-package/xgboost/
+			
+			cd python-package/
+			
+			python setup.py install
+	
+	Method 3: Ultimate method: https://xgboost.readthedocs.io/en/latest/build.html#
+	
+		Difference between Method 3 and Method 2 is: Method 3 build libxgboost.dll from scracth using
+		C++ complier, installed with Visual Studio (when install VS, make sure select all C++ compliers,
+		make "Modify" through Visual Studio Installer).
+			
+			git clone --recursive https://github.com/dmlc/xgboost
+			
+		For windows users:
+			
+			cd xgboost
+			
+			git submodule init
+			
+			git submodule update
+
+		XGBoost support compilation with Microsoft Visual Studio and MinGW. Here we use Visual Studio
+		
+			mkdir build
+			
+			cd build
+			
+			cmake .. -G"Visual Studio 15 2017 Win64" -DUSE_CUDA=ON
+
+        Note Visual Studio 2017 Win64 Generator may not work because complier v140 is not included
+
+		Choosing the Visual Studio 2017 generator may cause compilation failure. 
+		When it happens, specify the 2015 compiler by adding the -T option:
+
+			cmake .. -G"Visual Studio 15 2017 Win64" -T v140,cuda=9.2 -DR_LIB=ON -DUSE_CUDA=ON
+			
+		The above cmake configuration run will create an xgboost.sln solution file in the build directory. 
+		Build this solution in release mode as a x64 build, either from Visual studio or from command line:
+		
+			cmake --build . --target xgboost --config Release
+			
+		Python Package Installation
+		
+		    python setup.py install
+		
+		
+	Sample code for validating XGBoost installation:
+
+		# code: https://github.com/dmlc/xgboost/blob/master/demo/gpu_acceleration/cover_type.py
+		import xgboost as xgb
+		import numpy as np
+		from sklearn.datasets import fetch_covtype
+		from sklearn.model_selection import train_test_split
+		import time
+
+		# Fetch dataset using sklearn
+		cov = fetch_covtype()
+		X = cov.data
+		y = cov.target
+
+		# Create 0.75/0.25 train/test split
+		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, train_size=0.75,
+															random_state=42)
+
+		# Specify sufficient boosting iterations to reach a minimum, to shorten the trainning time
+		# reduce this number to 300
+		num_round = 3000
+
+		# Leave most parameters as default
+		param = {'objective': 'multi:softmax', # Specify multiclass classification
+				 'num_class': 8, # Number of possible output classes
+				 'tree_method': 'gpu_hist' # Use GPU accelerated algorithm
+				 }
+
+		# Convert input data from numpy to XGBoost format
+		dtrain = xgb.DMatrix(X_train, label=y_train)
+		dtest = xgb.DMatrix(X_test, label=y_test)
+
+		gpu_res = {} # Store accuracy result
+		tmp = time.time()
+		# Train model
+		xgb.train(param, dtrain, num_round, evals=[(dtest, 'test')], evals_result=gpu_res)
+		print("GPU Training Time: %s seconds" % (str(time.time() - tmp)))
+
+		# Repeat for CPU algorithm
+		tmp = time.time()
+		param['tree_method'] = 'hist'
+		cpu_res = {}
+		xgb.train(param, dtrain, num_round, evals=[(dtest, 'test')], evals_result=cpu_res)
+		print("CPU Training Time: %s seconds" % (str(time.time() - tmp)))
+			
+		
+		
+		

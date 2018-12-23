@@ -3,3 +3,6 @@
 *.out
 *.pdf
 *.synctex.gz
+
+logs/
+.ipynb_checkpoints/
