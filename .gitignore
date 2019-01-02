@@ -8,4 +8,5 @@
 logs/
 .ipynb_checkpoints/
 .idea/
-__pychache__/
+practice/.idea/
+practice/__pychache__/
