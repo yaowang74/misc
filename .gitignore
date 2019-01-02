@@ -9,4 +9,5 @@ logs/
 .ipynb_checkpoints/
 .idea/
 practice/.idea/
+practice/.idea/dictionaries/
 practice/__pychache__/
