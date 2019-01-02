@@ -3,6 +3,8 @@
 *.out
 *.pdf
 *.synctex.gz
+*.iml
 
 logs/
 .ipynb_checkpoints/
+.idea/
