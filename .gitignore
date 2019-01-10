@@ -4,6 +4,9 @@
 *.pdf
 *.synctex.gz
 *.iml
+*.nav
+*.snm
+*.toc
 
 logs/
 .ipynb_checkpoints/
