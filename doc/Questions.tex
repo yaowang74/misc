@@ -5,12 +5,13 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+%\usepackage{enumitem}
 \usepackage{graphicx}
 \usetheme{EastLansing}
 \author{Wang Yao}
 \begin{document}
-	\title{Data Science Questions}
-	%\subtitle{}
+	\title{Data Science Study Notes}
+	\subtitle{Some Common Interview Questions}
 	%\logo{}
 	%\institute{}
 	%\date{}
@@ -22,6 +23,33 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{}
+\frametitle{Correlation and PCA in dimension reduction}
+\begin{block}{Question:}
+	What are basic methods to reduce dimension?
+\end{block}
+\begin{itemize}
+	\item Use correlation test to remove correlated numerical variables with business understanding
+	\begin{itemize}
+		\item A correlation coefficient measures the extent to which two variables tend to change together. The coefficient describes both  strength and direction of the relationship
+		\item \textbf{Pearson correlation} evaluates the \textbf{linear relationship} between two \textbf{continuous variables}
+		\item \textbf{Spearman rank-order correlation} evaluates the \textbf{monotonic relationship} between two continuous or \textbf{ordinal} variables. In a \textbf{monotonic relationship}, the variables tend to change together, but not necessarily at a constant rate. 
+		\item The \textbf{Pearson} and \textbf{Spearman} coefficient are both nearly $0$ \textbf{does not} implies there is no strong relationship between two variables
+	\end{itemize}
+\end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Correlation and PCA in dimension reduction}
+\begin{itemize}
+	\item  Use Chi-Square test to remove correlated categorical variables with business understanding
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Correlation and PCA in dimension reduction}
+\begin{itemize}
+	\item Use PCA and pick the components which can explain the maximum variance in the data set. 
+\end{itemize}
+\end{frame}
+
 \end{document}
