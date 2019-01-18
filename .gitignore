@@ -7,6 +7,8 @@
 *.nav
 *.snm
 *.toc
+*.bbl
+*.blg
 
 logs/
 .ipynb_checkpoints/
