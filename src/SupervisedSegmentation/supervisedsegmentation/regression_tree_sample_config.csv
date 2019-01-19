@@ -1,0 +1,12 @@
+col_name,col_type
+site_name,string
+date,datetime
+kwh,float
+has_pool,category
+has_central_ac,category
+is_gas_user,category
+propType,category
+propSizes,category
+propAges,category
+propValues,category
+cdd66,integer

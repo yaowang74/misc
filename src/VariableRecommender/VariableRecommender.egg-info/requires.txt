@@ -1,0 +1,8 @@
+configparser
+pandas>=0.23.0
+numpy
+scipy
+matplotlib
+seaborn
+statsmodels
+scikit-learn

@@ -1,0 +1,35 @@
+Metadata-Version: 1.2
+Name: VariableRecommender
+Version: 0.1.0
+Summary: A variable recommendation module.
+Home-page: https://
+Author: Wang Yao
+Author-email: wang.yao@honeywell.com
+Maintainer: Wang Yao
+Maintainer-email: wang.yao@honeywell.com
+License: LICENSE.txt
+Description: Variable Recommenderis a package on feature selection.
+        
+        Feature selection is a process where you automatically select those features in
+        your data that contribute most to the prediction variable or output in which
+        you are interested.
+        
+        Having irrelevant features in your data can decrease the accuracy of many
+        models, especially linear algorithms like linear and logistic regression.
+        
+        Three main benefits of performing feature selection before modeling are:
+            * Reduces Overfitting: Less redundant data means less chance to make
+                                   decision based on noicse.
+            * Improves Accuracy: Less misleading data means modeling accuracy improves
+            * Reduces Training Time: Less data means that algorithms train faster
+        
+        Author: H211803
+Keywords: Feature Selection
+Platform: UNKNOWN
+Classifier: Intended Audience :: Data Science/Research
+Classifier: Programming Language :: Python :: 3.6.5
+Classifier: Topic :: Machine Learning :: Feature Selection
+Classifier: Topic :: Software Development
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
