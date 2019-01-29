@@ -9,6 +9,7 @@
 *.toc
 *.bbl
 *.blg
+*.bib
 
 logs/
 .ipynb_checkpoints/
