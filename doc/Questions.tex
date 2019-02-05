@@ -133,4 +133,720 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Time Series and related}
+\begin{block}{Question:}
+	How can you check if a data set or time series is Random?
+\end{block}
+\begin{block}{Answer:}
+	To check whether a dataset is random or not, use the lag plot. If the lag plot for the given dataset does not show any structure then it is random.
+\end{block}
+\begin{itemize}
+%	\item A lag plot is a special type of scatter plot with the two variables $(X,Y)$ “lagged.” 
+	\item One set of observations in a time series is plotted (lagged) against a set of later data. The kth lag is the time period that happened $k$ time points before time $i$. e.g.: $Lag_1(Y2) = Y1$ and $Lag_4(Y9) = Y5$.
+	\begin{itemize}
+		\item Model suitability and outliers
+		\item Randomness (data without a pattern), Serial correlation (where error terms in a time series transfer from one period to another).
+		\item Seasonality (periodic fluctuations in time series data that happens at regular periods).
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Clustering and related}
+\begin{block}{Question:}
+	How will you define the number of clusters in a clustering algorithm?
+\end{block}
+\begin{block}{Answer:}
+	Though the Clustering Algorithm is not specified, this question is mostly in reference to $K$-Means clustering where $K$ defines the number of clusters. The objective of clustering is to group similar entities in a way that the entities within a group are similar to each other but the groups are different from each other
+	
+	Within Sum of squares is generally used to explain the homogeneity within a cluster. If you plot WSS for a range of number of clusters, you will get "Elbow Curve", Use "Bending Point" as $K$ in $K$-means, where within groups sum of squares does not decrease significantly.
+\end{block}
+%\begin{itemize}
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Time Series and related}
+\begin{block}{Question:}
+	How can you deal with different types of seasonality in time series modeling?
+\end{block}
+\begin{block}{Answer:}
+	Seasonality in time series occurs when time series shows a repeated pattern over time. E.g., stationary sales decreases during holiday season, air conditioner sales increases during the summers etc.
+	
+	Seasonality makes your time series non-stationary because average value of the variables at different time periods. Differentiating a time series is generally known as the best method of removing seasonality from a time series. Seasonal differencing can be defined as a numerical difference between a particular value and a value with a periodic lag.
+	
+	Model the seasonal component directly and subtract it from observations.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear model and related}
+\begin{block}{Question:}
+	What’s the assumption of linear regression?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item Linear relationship between dependent and independent variables
+		\item Statistical independence of the errors (no correlation between consecutive errors in the case of time series data)
+		\item Homoscedasticity (constant variance) of the errors
+		\item Normality of the error distribution.
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item 
+%	\item 
+%	\item
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Linear model and related}
+\begin{block}{Question:}
+	How to check if a distribution is close to Normal? Why would you want to check it? What is a QQ Plot?
+\end{block}
+\begin{block}{Answer:}
+	A Q-Q plot or quantile-quantile plot, is a graphical tool to help us assess if a set of data plausibly came from some theoretical distribution such as a Normal or exponential. 
+	
+	For example, if we run a statistical analysis that assumes our independent variable is Normally distributed, we can use a Normal Q-Q plot to check that assumption. It’s just a visual check, not an airtight proof, so it is somewhat subjective. 
+	
+	But it allows us to see at-a-glance if our assumption is plausible, and if not, how the assumption is violated and what data points contribute to the violation.
+\end{block}
+%\begin{itemize}
+%	\item 
+%	\item
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	Can you cite some examples where a false negative important than a false positive?
+\end{block}
+\begin{block}{Answer:}
+	Assume there is an airport which has received high security threats and based on certain characteristics they try to identify whether a particular passenger can be a threat or not. Due to shortage of staff they decided to scan passenger being predicted as risk positives by their predictive model.
+	What will happen if a true threat customer is being flagged as non-threat by airport model?
+	
+	Another example can be judicial system. What if Jury or judge decide to make a criminal go free?
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of sensitivity and how do you calculate it?
+\end{block}
+\begin{block}{Answer:}
+	Sensitivity is also called true positive rate, recall, which measures the proportion of actual positives that are correctly identified as such
+	
+	Specificity is also called true negative rate, which measures the proportion of actual negatives that are correctly identified as such.
+	
+	The number of real positive(negative) events: $\textbf{P}$($\textbf{N}$)
+	
+	True positive(negative): $\textbf{TP}$($\textbf{TN}$); False positive(negative): $\textbf{FP}$($\textbf{FN}$)
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of sensitivity and how do you calculate it?
+\end{block}
+\begin{block}{Answer:}
+	Sensitivity, Recall, Hit Rate or True Positive Rate(\textbf{TPR})
+	\[
+		\textbf{TPR} = \frac{\textbf{TP}}{\textbf{P}} = \frac{\textbf{TP}}{\textbf{TP}+\textbf{FN}}
+		=1 - \textbf{FNR}
+	\]
+	Specificity, Selectivity or True Negative Rate(\textbf{TNR})
+	\[
+		\textbf{TNR} = \frac{\textbf{TN}}{\textbf{N}} = \frac{\textbf{TN}}{\textbf{FP}+\textbf{TN}}
+		=1 - \textbf{FPR}
+	\]
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of sensitivity and how do you calculate it?
+\end{block}
+\begin{block}{Answer:}
+	Precision or Positive Predictive Value(\textbf{PPV})
+	\[
+		\textbf{PPV} = \frac{\textbf{TP}}{\textbf{TP}+\textbf{FP}}
+	\]
+	Negative Predictive Value(\textbf{NPV})
+	\[
+		\textbf{NPV} = \frac{\textbf{TN}}{\textbf{TN}+\textbf{FN}}
+	\]
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of sensitivity and how do you calculate it?
+\end{block}
+\begin{block}{Answer:}
+	Accuracy(\textbf{ACC})
+	\[
+		\textbf{ACC} = \frac{\textbf{TP}+\textbf{TN}}{\textbf{P}+\textbf{N}} = \frac{\textbf{TP}+\textbf{TN}}{\textbf{TP}+\textbf{TN} + \textbf{FP}+\textbf{FN}}
+	\]
+	$\textbf{F}_1$ Score(harmonic mean of Precision and Recall)
+	\[
+		\textbf{F}_1 = 2\times\frac{\textbf{TPR}\times\textbf{PPV}}{\textbf{TPR} + \textbf{PPV}} = \frac{2\textbf{TP}}{2\textbf{TP}+\textbf{FP}+\textbf{FN}}
+	\]
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance metrics and related}
+\begin{block}{Question:}
+	What are the limitations of $R^2$
+\end{block}
+\begin{block}{Answer:}
+	$R^2$ is a goodness-of-fit measure for linear regression models. This statistic indicates the percentage of the variance in dependent variable that independent variables explain collectively. 
+%	$R^2$ measures the strength of the relationship between your model and the dependent variable.
+	$R^2$ cannot determine whether the coefficient estimates and predictions are biased, which is why you must assess the residual plots.
+	$R^2$ does not indicate whether a regression model is adequate. You can have a low $R^2$ value for a good model, or a high $R^2$ value for a model that does not fit the data.
+	$R^2$ does not measure goodness of fit.
+	$R^2$ does not measure predictive error.
+	$R^2$ does not allow you to compare models using transformed responses.
+	$R^2$ does not measure how one variable explains another.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model validation and related}
+\begin{block}{Question:}
+	How would you validate a model you created to generate a predictive model of a quantitative outcome variable using multiple regression.
+\end{block}
+\begin{block}{Answer:}
+	If the values predicted by the model are far outside of the response variable range, this would immediately indicate poor estimation or model inaccuracy. If the values seem to be reasonable, examine the parameters; any of the following would indicate poor estimation or multi-collinearity: opposite signs of expectations, unusually large or small values, or observed inconsistency when the model is fed new data. Use the model for prediction by feeding it new data, and use the coefficient of determination ($R^2$) as a model validity measure mean squared error (MSE).
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confidence interval}
+\begin{block}{Question:}
+	What is confidence interval?
+\end{block}
+\begin{block}{Answer:}
+	In statistics, a confidence interval is a type of interval estimate that is computed from the observed data. A confidence interval gives an estimated range of values which is likely to include an unknown population parameter, the estimated range being calculated from a given set of sample data.
+	
+	The confidence level is the probability that the interval produced by the method employed includes the true value of the parameter. Confidence intervals consist of a range of values (interval) that act as good estimates of the unknown population parameter.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Long-tailed distribution}
+\begin{block}{Question:}
+	Explain what a long-tailed distribution is and provide examples. Why are they important in classification and regression problems?
+\end{block}
+\begin{block}{Answer:}
+	In a skewed distribution with a long tail, a high frequency population is followed by a low frequency population, which gradually tails off asymptotically.
+%	Rule of thumb: majority of occurrences (more than half, and when Pareto principles applies, $80\%$) are accounted for by the first $20\%$ items in the distribution. The least frequently occurring $80\%$ of items are more important as a proportion of the total population.
+	
+	Natural language:
+	The frequency of any word is inversely proportional to its rank in the frequency table. 
+%	The most frequent word will occur twice as often as the second most frequent, three times as often as the third most frequen.
+	% “The” accounts for $7\%$ of all word occurrences (70000 over 1 million). “of” accounts for $3.5\%$, followed by “and”… Only 135 vocabulary items are needed to account for half the English corpus.
+	
+	Allocation of wealth among individuals: the larger portion of the wealth of any society is controlled by a smaller percentage of the people. 
+	%File size distribution of Internet Traffic, Hard disk error rates, values of oil reserves in a field (a few large fields, many small ones), sizes of sand particles, sizes of meteorites.
+	
+	In classification and regression problems, this is a issue when using models that make assumptions on the linearity and need to apply a monotone transformation on the data (logarithm). When sampling, the data will become even more unbalanced.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Activation function in NN}
+\begin{block}{Question:}
+	What is the function of activation function in ANN?
+\end{block}
+\begin{block}{Answer:}
+	To add the non-linear factor into the model.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sampling methods}
+\begin{block}{Question:}
+	What is sampling? How many sampling methods?
+\end{block}
+\begin{block}{Answer:}
+	Sampling is that part of statistical practice concerned with the selection of an unbiased or random subset of individual observations within a population of individuals intended to yield some knowledge about the population of concern.
+	
+	There are four sampling methods: Simple Random (purely random), Systematic( every kth member of population), cluster (population divided into groups or clusters)and stratified (divided by exclusive groups or strata, sample from each group) samplings.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Loss function}
+\begin{block}{Question:}
+	What’s the loss function log-loss?
+\end{block}
+\begin{block}{Answer:}
+	Log Loss is an evaluation metric used in (multinomial) logistic regression and extensions of it such as neural networks, defined as the negative log-likelihood of the true labels given a probabilistic classifier’s predictions.
+	
+	Maximizing the likelihood is the same as minimizing the cross entropy
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Missing value treatment}
+\begin{block}{Question:}
+	How do data management procedures like missing data handling make selection bias worse?
+\end{block}
+\begin{block}{Answer:}
+	Removing entire row in data even if one value is missing could achieve a selection bias if your values are not missing at random and they have some pattern. 
+	
+	Replacing missing values with mean of other available values might make your distribution biased e.g., standard deviation, correlation and regression are mostly dependent on the mean value of variables.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Missing value treatment}
+\begin{block}{Question:}
+	During analysis, how do you treat missing values?
+\end{block}
+\begin{block}{Answer:}
+	If any patterns for missing values are identified the analyst has to concentrate on them as it could lead to interesting and meaningful business insights. If there are no patterns identified, then the missing values can be substituted with mean or median (imputation) or they can simply be ignored.
+	
+	If it is a categorical variable, the default value(using business insight) can be assigned.
+	
+	If you have a distribution of data coming, for normal distribution give the mean value.
+	
+	If $80\%$ or more of the values for a variable are missing then you would be dropping the variable.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Python basics: shallow copy vs. deep copy}
+\begin{block}{Question:}
+	What is difference between shallow copy and deep copy?
+\end{block}
+\begin{block}{Answer:}
+%	Assignment statements in Python do not copy objects, they create bindings between a target and an object.
+	
+	The difference between shallow and deep copying is only relevant for compound objects (objects that contain other objects, like lists or class instances)
+	
+	A shallow copy constructs a new compound object and then (to the extent possible) inserts references into it to the objects found in the original.
+	
+	A deep copy constructs a new compound object and then, recursively, inserts copies into it of the objects found in the original.
+	
+	Shallow copies of dictionaries can be made using \texttt{dict.copy()}, and of lists by assigning a slice of the entire list, for example, \texttt{copied\_list = original\_list[:]}.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Python basics: tuples vs. lists}
+\begin{block}{Question:}
+	What is the difference between tuples and lists in Python?
+\end{block}
+\begin{block}{Answer:}
+	Tuples can be used as keys for dictionaries i.e. they can be hashed. Lists are mutable whereas tuples are immutable  they cannot be changed. Tuples should be used when the order of elements in a sequence matters. For example, set of actions that need to be executed in sequence, geographic locations or list of points on a specific route.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Python basics: sort an Numpy array}
+\begin{block}{Question:}
+	Write the code to sort an array in NumPy by the nth column
+\end{block}
+\begin{block}{Answer:}
+	Using \texttt{argsort()} function this can be achieved. If there is an array X and you would like to sort the nth column then code for this will be \\
+	\texttt{x[x[:, n-1].argsort()]}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Python basics: lambda function}
+\begin{block}{Question:}
+	Can the lambda forms in Python contain statements?
+\end{block}
+\begin{block}{Answer:}
+	No, as their syntax is restricted to single expressions and they are used for creating function objects which are returned at runtime.
+	
+	Python’s lambda forms cannot contain statements because Python’s syntactic framework can’t handle statements nested inside expressions.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Behavior questions}
+\begin{block}{Question:}
+	What challenges does a Data Scientist usually face?
+\end{block}
+\begin{block}{Answer:}
+	Handling data from multiple sources: The value of the data mined increases when a data scientist is able to reach across the expanse of the data landscape and access data from multiple platforms and data sources.
+	
+	Predicting Outcomes from the data: The final result is not necessarily the same as predicting data. Results might be unexpected even when datasets are given.
+	
+	Communicating with people: Understanding the data is not enough for a Data Scientist. It is also important to make it presentable to the people as well.
+	
+	Converting business problem into a analytical problem.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Behavior questions}
+\begin{block}{Question:}
+	While building a model, you typically use different Python packages like scikit-learn. If the organization says that you will have to develop the model yourself, how comfortable would you be in doing that?
+\end{block}
+\begin{block}{Answer:}
+	This is a good way for interviewers to test for the team-collaboration spirit of the candidate and also if he can figure out a way given a particular situation. A good answer would be:
+	This situation typically happens while training models offline and getting them into production, since the production system is not necessarily on Python i.e. say the deployment environment is Php. You need to work with developers to deploy them. Thankfully a lot of the open source code is available with the source code. 
+	So, if one knows what the algorithm is doing, he can easily provide the pseudo code or the equations to the developers who can then implement them in Java or other languages.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Brain Teaser}
+\begin{block}{Question:}
+	Imagine you have $n$ pieces of rope in a bucket. You reach in and grab one end-piece, then reach in and grab another end-piece, and tie those two together. What is the expected value of the number of loops in the bucket?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item There are $n$ entirely unattached pieces of rope in a bucket
+		\item A loop: any number of rope attached in a closed chain
+		\item Let $L_{n-1}$ denote the expected number of loops for $n-1$ pieces
+		\item Consider the bucket of $n$ pieces of rope, there are $2n$ rope ends
+	\end{itemize}
+Pick an end of rope, of the remaining $2n-1$ ends of rope only one end creates a loop(the other end of the same piece of rope). There are then $n-1$ untied pieces of rope. The rest of time, two separate pieces of rope are tied together and there are effectively $n-1$ untied pieces of rope. the recurrence is therefore:
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Brain Teaser}
+\begin{block}{Question:}
+	Imagine you have $n$ pieces of rope in a bucket. You reach in and grab one end-piece, then reach in and grab another end-piece, and tie those two together. What is the expected value of the number of loops in the bucket?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item $L_n = \frac{1}{2n-1} + L_{n-1}$, clearly $L_1 = 1$
+		\item $L_n = \sum_{k=1}^{n}{\frac{1}{2k-1}}=H_{2n} - \frac{H_n}{2}$, where $H_k$ is $k$th harmonic number
+		\item Since $H_k \approx \gamma + \ln{k}$ for large $k$, where $\gamma \approx 0.57722$, is the Euler-Mascheroni constant
+		\item $L_n \approx \ln{2n} - \frac{\ln{n}}{2} = \ln{2\sqrt{n}}$
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Brain Teaser}
+\begin{block}{Question:}
+	In any 15-minute interval, there is a $20\%$ probability that you will see at least one shooting star. What is the proba­bility that you see at least one shooting star in the period of an hour?
+\end{block}
+\begin{block}{Answer:}
+	Probability of not seeing any shooting star in 15 minutes is
+	\begin{align*}
+		1 - P(\text{Seeing at least one shooting star})= 1- 0.2=0.8
+	\end{align*}
+	Probability of not seeing any in the period of one hour is $0.8^4=0.4096$
+	
+	Probability of seeing at least one in one hour is
+	\begin{align*}
+	1 - P(\text{Not seeing any in one hour})= 1- 0.4096=0.5904
+	\end{align*}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What is root cause analysis?
+\end{block}
+\begin{block}{Answer:}
+	Root cause analysis (RCA) is a method of problem-solving used for identifying the root causes of faults or problems. A factor is considered a root cause of removal thereof from the problem-fault-sequence prevents the final undesirable event from recurring; whereas a causal factor is one that affects an event's outcome, but is not a root cause. Though removing a causal factor can benefit an outcome, it does not prevent its recurrence with certainty.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+
 \end{document}
