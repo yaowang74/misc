@@ -268,16 +268,14 @@
 \begin{frame}
 \frametitle{Confusion matrix and related}
 \begin{block}{Question:}
-	What do you understand by statistical power of sensitivity and how do you calculate it?
+	What do you understand by statistical power of sensitivity?
 \end{block}
 \begin{block}{Answer:}
-	Sensitivity is also called true positive rate, recall, which measures the proportion of actual positives that are correctly identified as such
+	Sensitivity is also called true positive rate, recall, which measures the proportion of actual positives that are correctly identified as such(e.g., the percentage of sick people who are correctly identified as having the condition).
 	
-	Specificity is also called true negative rate, which measures the proportion of actual negatives that are correctly identified as such.
+	Specificity is also called true negative rate, which measures the proportion of actual negatives that are correctly identified as such(e.g., the percentage of healthy people who are correctly identified as not having the condition).
 	
-	The number of real positive(negative) events: $\textbf{P}$($\textbf{N}$)
-	
-	True positive(negative): $\textbf{TP}$($\textbf{TN}$); False positive(negative): $\textbf{FP}$($\textbf{FN}$)
+	Sensitivity quantifies the avoiding of false negatives and specificity does the same for false positives. For any test, there is usually a trade-off between the measures
 \end{block}
 %\begin{itemize}
 %	\item
@@ -295,9 +293,141 @@
 \begin{frame}
 \frametitle{Confusion matrix and related}
 \begin{block}{Question:}
-	What do you understand by statistical power of sensitivity and how do you calculate it?
+	What do you understand by statistical power of sensitivity?
 \end{block}
 \begin{block}{Answer:}
+	Equivalently, in medical tests sensitivity is the extent to which actual positives are not overlooked.
+	
+	Specificity is the extent to which actual negatives are classified as such.
+	
+	Thus a highly sensitive test rarely overlooks an actual positive; a highly specific test rarely registers a positive classification for anything that is not the target of testing.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of sensitivity?
+\end{block}
+\begin{block}{Answer:}
+	Sensitivity refers to the test's ability to correctly detect ill patients who do have the condition. In the example of a medical test used to identify a disease, the sensitivity of the test is the proportion of people who test positive for the disease among those who have the disease.
+	\begin{align*}
+		\text{sensitivity}=&\frac{\text{num. of true positives}}{\text{num. of true positives} +\text{num. of false negatives}}\\
+		=&\frac{\text{num. of true positives}}{\text{total num. of sick individuals in population}}\\
+		=& \text{prob. of a positive test given that the patient has the disease}
+	\end{align*}
+
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of  specificity?
+\end{block}
+\begin{block}{Answer:}
+	Specificity relates to the test's ability to correctly reject healthy patients without a condition. In the example of a medical test for diagnosing a disease, specificity of a test is the proportion of healthy patients known not to have the disease, who will test negative for it.
+	\begin{align*}
+	\text{specificity}=&\frac{\text{num. of true negatives}}{\text{num. of true negatives} +\text{num. of false positives}}\\
+	=&\frac{\text{num. of true negatives}}{\text{total num. of well individuals in population}}\\
+	=& \text{prob. of a negative test given that the patient is well}
+	\end{align*}
+	
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of  specificity?
+\end{block}
+\begin{block}{Answer:}
+	A positive result in a test with high specificity is useful for ruling in disease. The test rarely gives positive results in healthy patients. A test with $100\%$ specificity will read negative, and accurately exclude disease from all healthy patients. A positive result signifies a high probability of the presence of disease.
+	
+	A test with a higher specificity has a lower type I error rate.
+	
+	The tradeoff between specificity and sensitivity is explored in ROC analysis as a trade off between TPR and FPR
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of  specificity?
+\end{block}
+\begin{block}{Answer:}
+	A positive result in a test with high specificity is useful for ruling in disease. The test rarely gives positive results in healthy patients. A test with $100\%$ specificity will read negative, and accurately exclude disease from all healthy patients. A positive result signifies a high probability of the presence of disease.
+	
+	A test with a higher specificity has a lower type I error rate.
+	
+	The tradeoff between specificity and sensitivity is explored in ROC analysis as a trade off between TPR and FPR
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What do you understand by statistical power of sensitivity?
+\end{block}
+\begin{block}{Answer:}
+	The number of real positive(negative) events: $\textbf{P}$($\textbf{N}$)
+	
+	True positive(negative): $\textbf{TP}$($\textbf{TN}$); False positive(negative): $\textbf{FP}$($\textbf{FN}$)
 	Sensitivity, Recall, Hit Rate or True Positive Rate(\textbf{TPR})
 	\[
 		\textbf{TPR} = \frac{\textbf{TP}}{\textbf{P}} = \frac{\textbf{TP}}{\textbf{TP}+\textbf{FN}}
@@ -325,7 +455,7 @@
 \begin{frame}
 \frametitle{Confusion matrix and related}
 \begin{block}{Question:}
-	What do you understand by statistical power of sensitivity and how do you calculate it?
+	What do you understand by statistical power of sensitivity?
 \end{block}
 \begin{block}{Answer:}
 	Precision or Positive Predictive Value(\textbf{PPV})
@@ -353,7 +483,7 @@
 \begin{frame}
 \frametitle{Confusion matrix and related}
 \begin{block}{Question:}
-	What do you understand by statistical power of sensitivity and how do you calculate it?
+	What do you understand by statistical power of sensitivity?
 \end{block}
 \begin{block}{Answer:}
 	Accuracy(\textbf{ACC})
@@ -364,6 +494,31 @@
 	\[
 		\textbf{F}_1 = 2\times\frac{\textbf{TPR}\times\textbf{PPV}}{\textbf{TPR} + \textbf{PPV}} = \frac{2\textbf{TP}}{2\textbf{TP}+\textbf{FP}+\textbf{FN}}
 	\]
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	An HIV test has a sensitivity of $99.7\%$ and a specificity of $98.5\%$. A subject from a population of prevalence $0.1\%$ receives a positive test result. What is the precision of the test (i.e the probability he is HIV positive)?
+\end{block}
+\begin{block}{Answer:}
+	\begin{align*}
+	&P(Actu_+\mid Pred_+)\\ &\quad= \frac{P( Pred_+\mid Actu_+)\times P(Actu_+)}{P( Pred_+\mid Actu_+)\times P(Actu_+) + P( Pred_+\mid Actu_-)\times P(Actu_-)}\\
+	&\quad=\frac{sensitivity\times prevalence}{sensitivity\times prevalence + (1 - specificity)\times(1-prevalence)}\\
+%	&\quad=\frac{0.997\times 0.001}{0.997\times 0.001 + 0.015\times 0.999} = 0.062
+	\end{align*}
 \end{block}
 %\begin{itemize}
 %	\item
@@ -629,6 +784,174 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Experimental design and related}
+\begin{block}{Question:}
+	Design an experiment to figure out which web design alternative to use. Assume there have been no other experiments done and there is no knowledge of the user behavior.
+\end{block}
+\begin{block}{Answer:}
+	Decide the number of samples/visits necessary to hit the necessary statistical significance (e.g. $95\%$). This can be done by using a $\chi^2$ test (if we are using a binomial random variable of clicking vs. not clicking) or a $z$-­test (if we are using a normally distributed random variable). 
+	
+	You can then use $p$­-value to identify whether the metric of the $B$ test is statistically significantly different from the metric of  baseline $A$ test. If it is and the metric is better, then the alternative site is the better choice.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Experimental design and related}
+\begin{block}{Question:}
+	Design an experiment to figure out which web design alternative to use. Assume there have been no other experiments done and there is no knowledge of the user behavior.
+\end{block}
+\begin{block}{Answer:}
+	Some other issues:
+	1. Identify potential biases due to interactions across pages. 
+	2. Perform a A/A test which implies testing two random samples of visitors, and check if the distribution and metric of choice does not have a statistically significant difference. This will ensure the fairness of the $A/B$ test. An $A/A$ test ensures that your audience does not have a particular skew or bias and a randomized selection for an $A/B$ test will be statistically relevant
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Recommendation system and related}
+\begin{block}{Question:}
+	If you were a data scientist at a web company that sells shoes, how would you build a system that recommends shoes to a visitor? (Verizon interview)
+\end{block}
+\begin{block}{Answer:}
+	If it is a new company that does not have much historical user data, go with item­ to item similarity. If the number of different items/shoes is extremely large, consider using matrix factorization techniques to reduce the dimensions.
+	If you have historical data around user preferences (e.g. ratings of shoes), you can use a collaborative filter type approach. Mention specifically the rows and columns of the matrix you generate with either approach. Then discuss what kind of similarity metrics you would try. E.g. euclidean distance, Jaccard similarity, cosine distance.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Recommendation system and related}
+\begin{block}{Question:}
+	If you were a data scientist at a web company that sells shoes, how would you build a system that recommends shoes to a visitor? (Verizon interview)
+\end{block}
+\begin{block}{Answer:}
+	After explaining the algorithmic aspect, you would discuss the data engineering side. Propose an engineering infrastructure that scales to millions of users/shoes where recommendations are generated in real time. As an example, you can stream the user data to a S3 bucket. You can perform the matrix analysis on a nightly basis, pre-calculate the entire set of recommendations on a per user basis, and store this in a in­memory database such as Redis. Then you could build a REST API that would query the database and respond with the recommendations given a user id.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{NLP questions and related}
+\begin{block}{Question:}
+	Given a set of historical news articles that have been classified as specific categories such as Sports, Politics, World, how would you classify a new article?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item Explore the data and understand key elements of the data.
+		\begin{itemize}
+			\item Plot the distribution of various categories in your training set to determine if there is label imbalance.
+			\item Look at the text to identify anything strange, such as non-English text, heavy abbreviations, or misspellings.
+			\item Do topic extraction to identify keywords for specific latent topics and find correlation to the labeled categories. This may give you a hint as to whether there are latent topics (keywords) that may correlate better than just using all the words.
+		\end{itemize}
+%		\item 
+%		\item 
+%		\item 
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{NLP questions and related}
+\begin{block}{Question:}
+	Given a set of historical news articles that have been classified as specific categories such as Sports, Politics, World, how would you classify a new article?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item Derive the training set by cleaning up the text. Remove lesser informative elements such as punctuation, abbreviations, and unicode characters. Do further cleaning by taking the lowercase of words and lemmatization/stemming.
+		\item Use a TFIDF vectorizer to convert the data to a bag of words model with TFIDF metric. Set lower and upper bounds to TFIDF to reduce the vocabulary size.
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{NLP questions and related}
+\begin{block}{Question:}
+	Given a set of historical news articles that have been classified as specific categories such as Sports, Politics, World, how would you classify a new article?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item Build a pipeline where you can train various models and compare their performance relative to metrics such as AUC, F1 score, precision and recall. You can do gridsearch to automate the cross validation as well.
+		\item Once you get the optimal model, you can publish this model to production using a pickled model (in python) or POJO (in java). This model can then be queried by using the exact same process of cleaning as done in previous steps for the new articles.
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Python basics: tuples vs. lists}
 \begin{block}{Question:}
 	What is the difference between tuples and lists in Python?
@@ -848,5 +1171,155 @@ Pick an end of rope, of the remaining $2n-1$ ends of rope only one end creates a
 %\end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	Why data cleaning plays a vital role in analysis?
+\end{block}
+\begin{block}{Answer:}
+	Cleaning data from multiple sources to transform it into a format that data analysts or data scientists can work with is a cumbersome process because - as the number of data sources increases, the time take to clean the data increases exponentially due to the number of sources and the volume of data generated in these sources. It might take up to $80\%$ of the time for just cleaning data making it a critical part of analysis task.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What is a point estimate?
+\end{block}
+\begin{block}{Answer:}
+	In statistics, point estimation involves the use of sample data to calculate a single statistic which is to serve as a ‘best guess’ or ‘best estimate’ of an unknown (fixed or random) population parameter. There are a variety of point estimators, each with different properties.
+	Minimum-variance mean-unbiased estimator (MVUE)
+	Best linear unbiased estimator (BLUE)
+	Minimum mean square error (MMSE)
+	Median-unbiased estimator
+	Maximum likelihood (ML)
+	Method of moments, generalized method of moments
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What is the difference between usual statistical analysis and time series analysis?  
+\end{block}
+\begin{block}{Answer:}
+	Time series analysis accounts for the autocorrelation between time events, which is the next value in a time series is affected by the earlier values in the time series. Time series analysis accounts for the fact that data points taken over time may have an internal structure (such as autocorrelation, trend or seasonal variation) that should be accounted for
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What is probability distribution type you would use to describe the following random variables?
+	a. Probability of k customers arriving to a restaurant within a duration of t minutes
+	b. The probability of the height of a person in a crowd being at least X inches
+\end{block}
+\begin{block}{Answer:}
+	A. Poisson distribution. This is assuming that customer arrivals are entirely independent from each other.
+	
+	B. Normal distribution. Note that in a continuous distribution the likelihood of being exactly X inches is zero.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What is probability distribution type you would use to describe the following random variables?
+	c. The probability of the sum of two 6­sided fair dices being Y
+	d. The probability of having k heads thrown out of N coin throws
+\end{block}
+\begin{block}{Answer:}
+	C. $P(sum(x1+x2) = \{0,1,(2,12),(3,11),(4,10)\ldots 36\}) = \{0,0,1/36,2/36,3/36,\ldots\}$
+	
+	D. Binomial distribution. 
+	\[
+		P(k \text{ heads in } N \text{ throws}) = \binom{N}{k} = \frac{N!}{k!\, (N-k)!}
+	\]
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	How does wordcount map-reduce work on Hadoop?
+\end{block}
+\begin{block}{Answer:}
+	The driver code would set up the job and configuration. If the data comes from HDFS and output is written to HDFS, add the input/output path to the job to those directories. Then the mapper job would take each line in the file and emit a value of 1 for each word as the key.
+	
+%	Note that the data passed between mapper and reducer must use the Hadoop data structures such as Text and IntWritables since these are more efficient for byte array serialization vs. primitive types such as Strings and Ints. The mapper output would then be collected in each executor, and then the combiner task would be executed. The combiner is a local aggregator that is optionally set to reduce the amount of data sent between the mappers and reducers.
+	
+	Once all the mappers are complete, only then can the shuffle phase begin. You might observe your jobs stuck at $33\%$ reducer, which implies that the shuffle phase is waiting on the mappers to complete. Once all the keys are sent to the reducers based on this shuffle, the sort phase begins on each reducer. After that, the reduce logic is executed, and the output can be written to another HDFS file.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+
+
 
 \end{document}
+
