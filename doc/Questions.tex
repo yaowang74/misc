@@ -124,13 +124,17 @@
 
 \begin{frame}
 \frametitle{Kernel method}
-\begin{itemize}
-	\item In its simplest form, the \textbf{Kernel methods} means transforming data into another dimension that has a clear dividing margin between classes of data 
-	\begin{itemize}
-		\item \textbf{NMF} decomposes a non-negative matrix to the product of two non-negative ones, which has been a promising tool in fields where only non-negative signals exist.
-		\item In comparison with PCA, NMF does not remove the mean of the matrices which leads to unphysical non-negative fluxes, therefore NMF is able to preserve more information than PCA
-	\end{itemize}
-\end{itemize}
+\begin{block}{Question:}
+	What’s the “kernel trick” and how is it useful?
+\end{block}
+\begin{block}{Answer:}
+	The Kernel trick involves kernel functions that can enable in higher-dimension spaces without explicitly calculating the coordinates of points within that dimension. This allows them the very useful attribute of calculating the coordinates of higher dimensions while being computationally cheaper than the explicit calculation of said coordinates. Many algorithms can be expressed in terms of inner products. Using the kernel trick enables us effectively run algorithms in a high-dimensional space with lower-dimensional data.
+	
+	 In its simplest form, the \textbf{Kernel methods} means transforming data into another dimension that has a clear dividing margin between classes of data 
+\end{block}
+%\begin{itemize}
+%	\item
+%\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -150,6 +154,29 @@
 		\item Seasonality (periodic fluctuations in time series data that happens at regular periods).
 	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Time Series and related}
+\begin{block}{Question:}
+	How can you deal with different types of seasonality in time series modeling?
+\end{block}
+\begin{block}{Answer:}
+	Seasonality in time series occurs when time series shows a repeated pattern over time. E.g., stationary sales decreases during holiday season, air conditioner sales increases during the summers etc.
+	
+	Seasonality makes your time series non-stationary because average value of the variables at different time periods. Differentiating a time series is generally known as the best method of removing seasonality from a time series. Seasonal differencing can be defined as a numerical difference between a particular value and a value with a periodic lag.
+	
+	Model the seasonal component directly and subtract it from observations.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item 
+%	\end{itemize}
+%\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -174,19 +201,17 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Time Series and related}
+\frametitle{Clustering and related}
 \begin{block}{Question:}
-	How can you deal with different types of seasonality in time series modeling?
+	How is $KNN$ different from $K$-means clustering?
 \end{block}
 \begin{block}{Answer:}
-	Seasonality in time series occurs when time series shows a repeated pattern over time. E.g., stationary sales decreases during holiday season, air conditioner sales increases during the summers etc.
+	$K$-Nearest Neighbors is a supervised classification algorithm, while $K$-means clustering is an unsupervised clustering algorithm. While the mechanisms may seem similar at first, what this really means is that in order for $K$-Nearest Neighbors to work, you need labeled data you want, to classify an unlabeled point into (thus the nearest neighbor part). K-means clustering requires only a set of unlabeled points and a threshold: the algorithm will take unlabeled points and gradually learn how to cluster them into groups by computing the mean of the distance between different points.
 	
-	Seasonality makes your time series non-stationary because average value of the variables at different time periods. Differentiating a time series is generally known as the best method of removing seasonality from a time series. Seasonal differencing can be defined as a numerical difference between a particular value and a value with a periodic lag.
-	
-	Model the seasonal component directly and subtract it from observations.
+	The critical difference here is that $KNN$ needs labeled points and is thus supervised learning, while $K$-means doesn’t — and is thus unsupervised learning.
 \end{block}
 %\begin{itemize}
-%	\item
+%	\item 
 %	\item 
 %	\begin{itemize}
 %		\item 
@@ -454,9 +479,9 @@
 
 \begin{frame}
 \frametitle{Confusion matrix and related}
-\begin{block}{Question:}
-	What do you understand by statistical power of sensitivity?
-\end{block}
+%\begin{block}{Question:}
+%	What do you calculate Precision?
+%\end{block}
 \begin{block}{Answer:}
 	Precision or Positive Predictive Value(\textbf{PPV})
 	\[
@@ -465,6 +490,10 @@
 	Negative Predictive Value(\textbf{NPV})
 	\[
 		\textbf{NPV} = \frac{\textbf{TN}}{\textbf{TN}+\textbf{FN}}
+	\]
+	False Positive Rate(\textbf{FPR})
+	\[
+		\textbf{FPR} = \frac{\textbf{FP}}{\textbf{N}} = \frac{\textbf{FP}}{\textbf{FP}+\textbf{TN}}
 	\]
 \end{block}
 %\begin{itemize}
@@ -483,7 +512,7 @@
 \begin{frame}
 \frametitle{Confusion matrix and related}
 \begin{block}{Question:}
-	What do you understand by statistical power of sensitivity?
+	What do you calculate model accuracy and $\textbf{F}_1$ score?
 \end{block}
 \begin{block}{Answer:}
 	Accuracy(\textbf{ACC})
@@ -494,6 +523,30 @@
 	\[
 		\textbf{F}_1 = 2\times\frac{\textbf{TPR}\times\textbf{PPV}}{\textbf{TPR} + \textbf{PPV}} = \frac{2\textbf{TP}}{2\textbf{TP}+\textbf{FP}+\textbf{FN}}
 	\]
+	with results tending to 1 being the best and 0 being the worst, would use it in classification tests where \textbf{TN} don't matter much
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What is Bayes’ Theorem? How is it useful in a machine learning context?
+\end{block}
+\begin{block}{Answer:}
+	Bayes’ Theorem gives you the posterior probability of an event given what is known as prior knowledge. It’s expressed as the \textbf{TPR} of a condition sample divided by the sum of \textbf{FPR} of the population and \textbf{TPR} of a condition. Say you had a $60\%$ chance of actually having the flu after a flu test, but out of people who had the flu, the test will be false $50\%$ of the time, and the overall population only has a $5\%$ chance of having the flu. What is your actual chance of having the flu after having a positive test?
+	
+	Bayes’ Theorem says that you have a (.6 * 0.05) (\textbf{TPR} of a Condition Sample) / (.6*0.05)(\textbf{TPR} of a Condition Sample) + (.5*0.95) (\textbf{FPR} of a Population)  = $5.94\%$ chance of getting a flu.
 \end{block}
 %\begin{itemize}
 %	\item
@@ -534,6 +587,29 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Confusion matrix and related}
+\begin{block}{Question:}
+	What’s the difference between Type I and Type II error?
+\end{block}
+\begin{block}{Answer:}
+	Type I error is a false positive, while Type II error is a false negative. Briefly stated, Type I error means claiming something has happened when it hasn’t, while Type II error means that you claim nothing is happening when in fact something is.
+	
+	A clever way to think about this is to think of Type I error as telling a man he is pregnant, while Type II error means you tell a pregnant woman she isn’t carrying a baby.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Model performance metrics and related}
 \begin{block}{Question:}
 	What are the limitations of $R^2$
@@ -547,6 +623,257 @@
 	$R^2$ does not measure predictive error.
 	$R^2$ does not allow you to compare models using transformed responses.
 	$R^2$ does not measure how one variable explains another.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	What’s the trade-off between bias and variance?
+\end{block}
+\begin{block}{Answer:}
+	Bias is error due to erroneous or overly simplistic assumptions in the learning algorithm you’re using. This can lead to the model underfitting your data, making it hard to have high predictive accuracy and to generalize your knowledge from the training set to the test set.
+	
+	Variance is error due to too much complexity in the learning algorithm you’re using. This leads to the algorithm being highly sensitive to high degrees of variation in your training data, which can lead your model to overfit the data. You’ll be carrying too much noise from your training data for your model to be very useful for your test data.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+What’s the trade-off between bias and variance?
+\end{block}
+\begin{block}{Answer:}
+The bias-variance decomposition essentially decomposes the learning error from any algorithm by adding the bias, the variance and a bit of irreducible error due to noise in the underlying dataset. Essentially, if you make the model more complex and add more variables, you’ll lose bias but gain some variance, in order to get the optimally reduced amount of error, you’ll have to tradeoff bias and variance. You don’t want either high bias or high variance in your model.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	What’s the trade-off between bias and variance?
+\end{block}
+\begin{block}{Answer:}
+	High variance typicaly means that we are overfitting to our training data, finding patterns and complexity that are a product of randomness as opposed to some real trend. Generally, a more complex or flexible model will tend to have high variance due to overfitting but lower bias because, averaged over several predictions, our model more accurately predicts the target variable. On the other hand, an underfit or oversimplified model, while having lower variance, will likely be more biased since it lacks the tools to fully capture trends in the data.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	What’s Bootstrapping and bagging?
+\end{block}
+\begin{block}{Answer:}
+	Bootstrap refers to random sampling with replacement. Bootstrap allows us to better understand bias and variance of the dataset. Bootstrap involves random sampling of small subset of data from the dataset, the selection of all example in the dataset has equal probability. 
+	
+	Bootstrap Aggregation, or Bagging for short, is a simple and very powerful ensemble method. Bagging is the application of the Bootstrap procedure to a high-variance machine learning algorithm, typically decision trees.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	What’s relationship between bagging and random forest?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item A sample from observation is selected randomly with replacement
+		\item A subset of features are randomly selected to create a decision tree
+		\item Trained many trees in parallel, using above procedures
+		\item Outcome is given by aggregating predictions from all trees
+	\end{itemize}
+	Randomization increases bias but makes it possible to reduce overall variance through averaging: let $Z_1,\ldots Z_N$ be i.i.d. random variables
+	\[
+		Var\left(\frac{1}{N}\sum_{i}Z_i\right) = \frac{1}{N}Var(Z_i)
+	\]
+	Average models to reduce model variance
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	What is Boosting?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item Weight all training samples equally, and train model on training set
+		\item Compute error of model on training set
+		\item Increase weights on training cases model gets wrong
+		\item Train new model on re-weighted training set
+		\item Re-compute errors on weighted training set
+		\item Increase weights again on cases model gets wrong
+	\end{itemize}
+Repeat the process, final model: weighted prediction of each model. Aim to reduce bias, not variance
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	Summarize difference between Boosting and Bagging?
+\end{block}
+\begin{block}{Answer:}
+	Bagging:
+	\begin{itemize}
+		\item parallel ensemble: each model is built independently
+		\item aim to decrease variance, not bias
+		\item suitable for high variance low bias models (complex models)
+		\item an example of a tree based method is RF, which develop fully grown trees(note that RF modifies the grown procedure to reduce the correlation between trees)
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	Summarize difference between Boosting and Bagging?
+\end{block}
+\begin{block}{Answer:}
+	Boosting:
+	\begin{itemize}
+		\item sequential ensemble: try to add new models that do well where previous models lack
+		\item aim to decrease bias, not variance
+		\item suitable for low variance high bias models
+		\item an example of a tree based method is gradient boosting
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	Summarize difference between Boosting and Bagging?
+\end{block}
+\begin{block}{Answer:}
+	\begin{itemize}
+		\item Bagging doesn’t work so well with stable models(low variance). Boosting might still
+		help
+		\item Boosting might hurt performance on noisy datasets while bagging doesn't have this problem
+		\item On average, boosting helps more than bagging, but it is also more
+		common for boosting to hurt performance.
+		\item Bagging is easier to parallelize
+	\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model performance and related}
+\begin{block}{Question:}
+	Explain how a ROC curve works.
+\end{block}
+\begin{block}{Answer:}
+	The ROC curve is a graphical representation of the contrast between true positive rates and the false positive rate at various thresholds. It’s often used as a proxy for the trade-off between the sensitivity of the model (true positives) vs the fall-out or the probability it will trigger a false alarm (false positives).
 \end{block}
 %\begin{itemize}
 %	\item
@@ -591,6 +918,71 @@
 	In statistics, a confidence interval is a type of interval estimate that is computed from the observed data. A confidence interval gives an estimated range of values which is likely to include an unknown population parameter, the estimated range being calculated from a given set of sample data.
 	
 	The confidence level is the probability that the interval produced by the method employed includes the true value of the parameter. Confidence intervals consist of a range of values (interval) that act as good estimates of the unknown population parameter.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confidence interval}
+\begin{block}{Question:}
+	Why is “Naive” Bayes naive?
+\end{block}
+\begin{block}{Answer:}
+	Despite its practical applications, especially in text mining, Naive Bayes is considered “Naive” because it makes an assumption that is virtually impossible to see in real-life data: the conditional probability is calculated as the pure product of the individual probabilities of components. This implies the absolute independence of features — a condition probably never met in real life.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confidence interval}
+\begin{block}{Question:}
+	Explain the difference between L1 and L2 regularization.
+\end{block}
+\begin{block}{Answer:}
+	$L_2$ regularization tends to spread error among all the terms, while $L_1$ is more binary/sparse, with many variables either being assigned a 1 or 0 in weighting. $L_1$ corresponds to setting a Laplacean prior on the terms, while $L_2$ corresponds to a Gaussian prior.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Confidence interval}
+\begin{block}{Question:}
+	How is a decision tree pruned?
+\end{block}
+\begin{block}{Answer:}
+	Pruning is what happens in decision trees when branches that have weak predictive power are removed in order to reduce the complexity of the model and increase the predictive accuracy of a decision tree model. Pruning can happen bottom-up and top-down, with approaches such as reduced error pruning and cost complexity pruning.
+	
+	Reduced error pruning is perhaps the simplest version: replace each node. If it doesn’t decrease predictive accuracy, keep it pruned. While simple, this heuristic actually comes pretty close to an approach that would optimize for maximum accuracy.
 \end{block}
 %\begin{itemize}
 %	\item
@@ -705,7 +1097,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Missing value treatment}
+\frametitle{Data preprocessing} 
 \begin{block}{Question:}
 	How do data management procedures like missing data handling make selection bias worse?
 \end{block}
@@ -728,7 +1120,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Missing value treatment}
+\frametitle{Data preprocessing}
 \begin{block}{Question:}
 	During analysis, how do you treat missing values?
 \end{block}
@@ -740,6 +1132,33 @@
 	If you have a distribution of data coming, for normal distribution give the mean value.
 	
 	If $80\%$ or more of the values for a variable are missing then you would be dropping the variable.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Data preprocessing}
+\begin{block}{Question:}
+	How would you handle an imbalanced dataset?
+\end{block}
+\begin{block}{Answer:}
+	An imbalanced dataset is when you have, for example, a classification test and $90\%$ of the data is in one class. That leads to problems: an accuracy of $90\%$ can be skewed if you have no predictive power on the other category of data! Here are a few tactics to get over the hump:
+	
+	1- Collect more data to even the imbalances in the dataset.
+	
+	2- Downsample or oversample the dataset to correct for imbalances.
+	
+	3- Try a different algorithm altogether on your dataset.
 \end{block}
 %\begin{itemize}
 %	\item
@@ -1003,6 +1422,48 @@
 	No, as their syntax is restricted to single expressions and they are used for creating function objects which are returned at runtime.
 	
 	Python’s lambda forms cannot contain statements because Python’s syntactic framework can’t handle statements nested inside expressions.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Data structure and related}
+\begin{block}{Question:}
+	What are some differences between a linked list and an array?
+\end{block}
+\begin{block}{Answer:}
+	An array is an ordered collection of objects. A linked list is a series of objects with pointers that direct how to process them sequentially. An array assumes that every element has the same size, unlike the linked list. A linked list can more easily grow organically: an array has to be pre-defined or re-defined for organic growth. Shuffling a linked list involves changing which points direct where — meanwhile, shuffling an array is more complex and takes more memory.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Data structure and related}
+\begin{block}{Question:}
+	Describe a hash table.
+\end{block}
+\begin{block}{Answer:}
+	A hash table is a data structure that produces an associative array. A key is mapped to certain values through the use of a hash function. They are often used for tasks such as database indexing.
 \end{block}
 %\begin{itemize}
 %	\item
@@ -1318,6 +1779,170 @@ Pick an end of rope, of the remaining $2n-1$ ends of rope only one end creates a
 %\end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What’s the difference between a generative and discriminative model?
+\end{block}
+\begin{block}{Answer:}
+	A generative model will learn categories of data while a discriminative model will simply learn the distinction between different categories of data. Discriminative models will generally outperform generative models on classification tasks.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What cross-validation technique would you use on a time series dataset?
+\end{block}
+\begin{block}{Answer:}
+	Time series is inherently ordered by chronological order. If a pattern emerges in later time periods for example, your model may still pick up on it even if that effect doesn’t hold in earlier years!
+	
+	You’ll want to do something like forward chaining where you’ll be able to model on past data then look at forward-facing data.
+	
+	fold 1 : training [1], test [2]
+	
+	fold 2 : training [1 2], test [3]
+	
+	fold 3 : training [1 2 3], test [4]
+	
+	fold 4 : training [1 2 3 4], test [5]
+	
+	fold 5 : training [1 2 3 4 5], test [6]
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	How do you ensure you’re not overfitting with a model?
+\end{block}
+\begin{block}{Answer:}
+	There are three main methods to avoid overfitting:
+	
+	1- Keep the model simpler: reduce variance by taking into account fewer variables and parameters, thereby removing some of the noise in the training data.
+	
+	2- Use cross-validation techniques such as k-folds cross-validation.
+	
+	3- Use regularization techniques such as LASSO that penalize certain model parameters if they’re likely to cause overfitting.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What evaluation approaches would you work to gauge the effectiveness of a machine learning model?
+\end{block}
+\begin{block}{Answer:}
+	You would first split the dataset into training and test sets, or perhaps use cross-validation techniques to further segment the dataset into composite sets of training and test sets within the data. You should then implement a choice selection of performance metrics: here is a fairly comprehensive list. You could use measures such as the F1 score, the accuracy, and the confusion matrix.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	How would you implement a recommendation system for our company’s users?
+\end{block}
+\begin{block}{Answer:}
+	A lot of machine learning interview questions of this type will involve implementation of machine learning models to a company’s problems. You’ll have to research the company and its industry in-depth, especially the revenue drivers the company has, and the types of users the company takes on in the context of the industry it’s in.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	How can we use your machine learning skills to generate revenue?
+\end{block}
+\begin{block}{Answer:}
+	This is a tricky question. The ideal answer would demonstrate knowledge of what drives the business and how your skills could relate. For example, if you were interviewing for music-streaming startup Spotify, you could remark that your skills at developing a better recommendation model would increase user retention, which would then increase revenue in the long run.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	How can we use your machine learning skills to generate revenue?
+\end{block}
+\begin{block}{Answer:}
+	This kind of question requires you to listen carefully and impart feedback in a manner that is constructive and insightful. Your interviewer is trying to gauge if you’d be a valuable member of their team and whether you grasp the nuances of why certain things are set the way they are in the company’s data process based on company- or industry-specific conditions. They’re trying to see if you can be an intellectual peer. Act accordingly.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
 
 
 
