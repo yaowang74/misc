@@ -1174,20 +1174,15 @@ Repeat the process, final model: weighted prediction of each model. Aim to reduc
 \end{frame}
 
 \begin{frame}
-\frametitle{Python basics: shallow copy vs. deep copy}
+\frametitle{Statistics: $p$-value and related}
 \begin{block}{Question:}
-	What is difference between shallow copy and deep copy?
+	What does $p$-value signify about the statistical data?
 \end{block}
 \begin{block}{Answer:}
-%	Assignment statements in Python do not copy objects, they create bindings between a target and an object.
-	
-	The difference between shallow and deep copying is only relevant for compound objects (objects that contain other objects, like lists or class instances)
-	
-	A shallow copy constructs a new compound object and then (to the extent possible) inserts references into it to the objects found in the original.
-	
-	A deep copy constructs a new compound object and then, recursively, inserts copies into it of the objects found in the original.
-	
-	Shallow copies of dictionaries can be made using \texttt{dict.copy()}, and of lists by assigning a slice of the entire list, for example, \texttt{copied\_list = original\_list[:]}.
+	$p$-value is used to determine the significance of results after a hypothesis test in statistics. $p$-value helps the readers to draw conclusions and is always between 0 and 1. Let significance level is 0.05, then 
+	$p$-value $> 0.05$ denotes weak evidence against the null hypothesis which means the null hypothesis cannot be rejected.
+	$p$-value $<= 0.05$ denotes strong evidence against the null hypothesis which means the null hypothesis can be rejected.
+	$p$-value $=0.05$ is the marginal value indicating it is possible to go either way.
 \end{block}
 %\begin{itemize}
 %	\item
@@ -1203,7 +1198,33 @@ Repeat the process, final model: weighted prediction of each model. Aim to reduc
 \end{frame}
 
 \begin{frame}
-\frametitle{Experimental design and related}
+\frametitle{Statistics: Expected value and Mean value}
+\begin{block}{Question:}
+	Are expected value and mean value different?
+\end{block}
+\begin{block}{Answer:}
+	They are not different but the terms are used in different contexts. Mean is generally referred when talking distribution or sample population while expected value is generally referred in a random variable context.
+	
+	For Sampling Data: Mean value is the only value that comes from the sampling data.
+	Expected Value is the mean of all the means i.e. the value that is built from multiple samples. Expected value is the population mean.
+	
+	For Distributions: Mean value and Expected value are same irrespective of the distribution, under the condition that the distribution is in the same population.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Statistics: Experimental design and related}
 \begin{block}{Question:}
 	Design an experiment to figure out which web design alternative to use. Assume there have been no other experiments done and there is no knowledge of the user behavior.
 \end{block}
@@ -1226,7 +1247,7 @@ Repeat the process, final model: weighted prediction of each model. Aim to reduc
 \end{frame}
 
 \begin{frame}
-\frametitle{Experimental design and related}
+\frametitle{Statistics: Experimental design and related}
 \begin{block}{Question:}
 	Design an experiment to figure out which web design alternative to use. Assume there have been no other experiments done and there is no knowledge of the user behavior.
 \end{block}
@@ -1369,6 +1390,36 @@ Repeat the process, final model: weighted prediction of each model. Aim to reduc
 %	\end{itemize}
 %\end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Python basics: shallow copy vs. deep copy}
+\begin{block}{Question:}
+	What is difference between shallow copy and deep copy?
+\end{block}
+\begin{block}{Answer:}
+	%	Assignment statements in Python do not copy objects, they create bindings between a target and an object.
+	
+	The difference between shallow and deep copying is only relevant for compound objects (objects that contain other objects, like lists or class instances)
+	
+	A shallow copy constructs a new compound object and then (to the extent possible) inserts references into it to the objects found in the original.
+	
+	A deep copy constructs a new compound object and then, recursively, inserts copies into it of the objects found in the original.
+	
+	Shallow copies of dictionaries can be made using \texttt{dict.copy()}, and of lists by assigning a slice of the entire list, for example, \texttt{copied\_list = original\_list[:]}.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Python basics: tuples vs. lists}
