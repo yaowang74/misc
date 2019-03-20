@@ -465,5 +465,11 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		in conca environment, this is will be: pipinstall dist/<package-name>.whl
 
 	For more information: look at https://wheel.readthedocs.io/en/stable/quickstart.html 
-		
+
+
+12.	Using Jupyter lab on remote machine:
+        on local machine run: 	ssh -L localhost:8888:localhost:8888 username@remotehostname
+	on remote machine run: jupyter lab --no-browser --port 8888
+        first localhost is laocal machine port number, second localhost is remote machine port number
+
 		
