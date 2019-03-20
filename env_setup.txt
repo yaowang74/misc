@@ -414,8 +414,8 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		y = cov.target
 
 		# Create 0.75/0.25 train/test split
-		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, train_size=0.75,
-															random_state=42)
+		X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=0.25, train_size=0.75, random_state=42)
 
 		# Specify sufficient boosting iterations to reach a minimum, to shorten the trainning time
 		# reduce this number to 300
@@ -444,6 +444,26 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		xgb.train(param, dtrain, num_round, evals=[(dtest, 'test')], evals_result=cpu_res)
 		print("CPU Training Time: %s seconds" % (str(time.time() - tmp)))
 			
-		
+
+11. Build python package(using cookiecutter) that is pip-installable:
+
+	Step1. 	$ pip install cookiecutter
+		$ cookiecutter https://github.com/wdm0006/cookiecutter-pipproject.git
+                
+                There are many other templates, find templates at https://github.com/audreyr/cookiecutter
+                When all basic information about your package are provided to cookiecutter template,
+                a simple structure will be established, modify contents of files such as LICENSE, README
+                and setup.py etc. if necessary.
+
+	Step2.	install Setuptools and Wheel, under conda environment this is can be done with conda install
+
+	Step3.	python setup.py sdist bdist_wheel
+		This command should output a lot of text and once completed should generate two files in the dist directory:
+		The tar.gz file is a source archive whereas the .whl file is a built distribution. 
+
+	Step4.	You can install the .whl file using pip: python -m pip install dist/<package-name>.whl
+		in conca environment, this is will be: pipinstall dist/<package-name>.whl
+
+	For more information: look at https://wheel.readthedocs.io/en/stable/quickstart.html 
 		
 		
