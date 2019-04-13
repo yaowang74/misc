@@ -1197,6 +1197,8 @@ Repeat the process, final model: weighted prediction of each model. Aim to reduc
 %\end{itemize}
 \end{frame}
 
+
+
 \begin{frame}
 \frametitle{Statistics: Expected value and Mean value}
 \begin{block}{Question:}
@@ -1224,14 +1226,16 @@ Repeat the process, final model: weighted prediction of each model. Aim to reduc
 \end{frame}
 
 \begin{frame}
-\frametitle{Statistics: Experimental design and related}
+\frametitle{Statistics: Distribution}
 \begin{block}{Question:}
-	Design an experiment to figure out which web design alternative to use. Assume there have been no other experiments done and there is no knowledge of the user behavior.
+	What’s the differences between the poission distribution and normal distribution?
 \end{block}
 \begin{block}{Answer:}
-	Decide the number of samples/visits necessary to hit the necessary statistical significance (e.g. $95\%$). This can be done by using a $\chi^2$ test (if we are using a binomial random variable of clicking vs. not clicking) or a $z$-­test (if we are using a normally distributed random variable). 
-	
-	You can then use $p$­-value to identify whether the metric of the $B$ test is statistically significantly different from the metric of  baseline $A$ test. If it is and the metric is better, then the alternative site is the better choice.
+		\begin{itemize}
+			\item A Poisson distribution is discrete while a normal distribution is continuous
+			\item A Poisson random variable is always >= 0.
+			\item When the mean of a Poisson distribution is large, it becomes similar to a normal distribution.
+		\end{itemize}
 \end{block}
 %\begin{itemize}
 %	\item
@@ -1960,6 +1964,64 @@ Pick an end of rope, of the remaining $2n-1$ ends of rope only one end creates a
 \end{block}
 \begin{block}{Answer:}
 	This is a tricky question. The ideal answer would demonstrate knowledge of what drives the business and how your skills could relate. For example, if you were interviewing for music-streaming startup Spotify, you could remark that your skills at developing a better recommendation model would increase user retention, which would then increase revenue in the long run.
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	What is the Central Limit Theorem? Explain it. Why is it important?
+\end{block}
+\begin{block}{Answer:}
+	The CLT states that the arithmetic mean of a sufficiently large number of iterates of independent random variables will be approximately normally distributed regardless of the underlying distribution. i.e: the sampling distribution of the sample mean is normally distributed.
+		\begin{itemize}
+			\item Used in hypothesis testing
+			\item Used for confidence intervals
+			\item Random variables must be iid: independent and identically distributed
+			\item Finite variance
+		\end{itemize}
+\end{block}
+%\begin{itemize}
+%	\item
+%	\item 
+%	\item 
+%	\item 
+%	\begin{itemize}
+%		\item 
+%		\item 
+%		\item
+%	\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Miscellaneous}
+\begin{block}{Question:}
+	Define: quality assurance, six sigma.
+\end{block}
+\begin{block}{Answer:}
+	Quality assurance:
+		\begin{itemize}
+			\item A way of preventing mistakes or defects in manufacturing products or when delivering services to customers
+			\item In a machine learning context: anomaly detection
+		\end{itemize}
+	Six sigma:
+		\begin{itemize}
+			\item Set of techniques and tools for process improvement
+			\item $99.99966\%$ of products are defect-free products (3.4 per 1 million)
+			\item 6 standard deviation from the process mean
+		\end{itemize}
 \end{block}
 %\begin{itemize}
 %	\item
