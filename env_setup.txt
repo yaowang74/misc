@@ -472,4 +472,19 @@ for Windows machine. On Linux machine, the steps will be simpler.
 	on remote machine run: jupyter lab --no-browser --port 8888
         first localhost is laocal machine port number, second localhost is remote machine port number
 
-		
+
+13.     Solution for proxy setting cause CondaHTTPError: HTTP 000 CONNECTION FAILED for URL ...
+
+        Step1: Update C:\Users\\username\.condarc file with the following (has to be yaml syntex):
+        
+        channels:
+          - defaults
+        ssl_verify: false
+        proxy_server:
+            http: http://sproxy.fg.xxx.com:8080
+            https: https://sproxy.fg.xxx.com:8080
+
+        Step2: in anaconda prompt conda config --set ssl_verify false
+
+        Note that .condarc has to be in yaml syntex, use notepad not notepad++.
+	
