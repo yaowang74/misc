@@ -1,66 +1,66 @@
-Computing environment setup. This short instruction file on how to setup python machine learning environment is specificly 
+Computing environment setup. This short instruction file on how to setup python machine learning environment is specificly
 for Windows machine. On Linux machine, the steps will be simpler.
 
 1. install anaconda
 
-2. setup new env 
+2. setup new env
 	To create an environment with a specific version of Python:
 
 		conda create -n myenv python=3.6.7
-	
+
 	To see a list of available python versions first, use
-		
+
 		conda search "^python$"
-		
+
 	To create an environment with a specific version of a package:
 
 		conda create -n myenv scipy=0.15.0
 		conda install numpy scikit-learn
-	
+
 	For more details follow: https://conda.io/docs/user-guide/tasks/manage-environments.html
-	
+
 	To activate an environment called yourenvname:
-		
+
 		source activate yourenvname
-	
+
 	Install additional python packages, for example numpy:
-	
+
 		souce activate yourenvname
 		conda install numpy
-	
+
 	or
-		
+
 		conda install -n yourenvname numpy
-	
+
 	To deactivate a virtual environment named yourvenvname
-	
+
 		source deactivate
-	
+
 	To delete a no longer needed virtual environment called yourenvname
-		
+
 		conda remove -n yourenvname -all
 
 3. Once activate new python virtual environment, install h2o using
-	
+
 	conda install -c h2oai h2o=3.20.0.1
 
 	If you leave the h2o version blank, then the latest version will be installed.
-	 
-	For Python 3.6 users, H2O has tabulate>=0.75 as a dependency; however, there is no tabulate 
-	available in the default channels for Python 3.6. This is available in the conda-forge channel. 
-	As a result, Python 3.6 users must add the conda-forge channel in order to load the latest version of H2O. 
+
+	For Python 3.6 users, H2O has tabulate>=0.75 as a dependency; however, there is no tabulate
+	available in the default channels for Python 3.6. This is available in the conda-forge channel.
+	As a result, Python 3.6 users must add the conda-forge channel in order to load the latest version of H2O.
 	This can be done by performing the following steps:
-	
+
 		conda create -n py36 python=3.6 anaconda
 		source activate py36
 		conda config --append channels conda-forge
 		conda install -c h2oai h2o
-	 
+
     for more details follow http://docs.h2o.ai/h2o/latest-stable/h2o-docs/downloading.html#install-on-anaconda-cloud
 
 4. Install Lightgbm, GPU version. Make sure your computer equiped with CUDA support GPU. Follow these steps:
    https://lightgbm.readthedocs.io/en/latest/Installation-Guide.html#id18
-   
+
 	Install Git for Windows, CMake (3.8 or higher) and Visual Studio 2015 or newer, make sure all C++ compliers
 	are selected.
 
@@ -89,13 +89,13 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		cmake --build . --target ALL_BUILD --config Release
 
 	Note: C:\local\boost_1_64_0\ and C:\local\boost_1_64_0\lib64-msvc-14.0 are locations of your Boost binaries. You also can set them to the environment variable to avoid Set ... commands when build.
-	
+
 	Install python package:
 		cd ../python-package/
 		python setup.py install
 		cd ..
 
-4 (a). Install LightGBM on Linux(ubuntu) 
+4 (a). Install LightGBM on Linux(ubuntu)
 	Follow https://lightgbm.readthedocs.io/en/latest/Installation-Guide.html#build-gpu-version for more details.
 
 	On Linux GPU version of LightGBM can be built using OpenCL, Boost, CMake and gcc or Clang.
@@ -103,48 +103,48 @@ for Windows machine. On Linux machine, the steps will be simpler.
 	OpenCL 1.2 headers and libraries, which is usually provided by GPU manufacture.
 	The generic OpenCL ICD packages (for example, Debian package cl-icd-libopencl1 and cl-icd-opencl-dev) can also be used.
 	libboost 1.56 or later (1.61 or later is recommended).
-	We use Boost.Compute as the interface to GPU, which is part of the Boost library since version 1.61. 
-	However, since we include the source code of Boost.Compute as a submodule, 
-	we only require the host has Boost 1.56 or later installed. We also use Boost.Align for memory allocation. 
+	We use Boost.Compute as the interface to GPU, which is part of the Boost library since version 1.61.
+	However, since we include the source code of Boost.Compute as a submodule,
+	we only require the host has Boost 1.56 or later installed. We also use Boost.Align for memory allocation.
 	Boost.Compute requires Boost.System and Boost.Filesystem to store offline kernel cache.
 	The following Debian packages should provide necessary Boost libraries: libboost-dev, libboost-system-dev, libboost-filesystem-dev.
 
-		CMake 3.2 or later.    
-	
+		CMake 3.2 or later.
+
 	To build LightGBM GPU version, run the following commands:
-	
+
 		git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM
 		mkdir build ; cd build
 		cmake -DUSE_GPU=1 ..
 		# if you have installed NVIDIA CUDA to a customized location, you should specify paths to OpenCL headers and library like the following:
 		# cmake -DUSE_GPU=1 -DOpenCL_LIBRARY=/usr/local/cuda/lib64/libOpenCL.so -DOpenCL_INCLUDE_DIR=/usr/local/cuda/include/ ..
-		make -j4	
-	
+		make -j4
+
 	To install python API, first activate conda env then
-	
+
 		cd python-package/
 		python setup.py install --gpu
 
 	Use conda list lightgbm to valid installation.
 
-	You need to set an additional parameter "device" : "gpu". From https://blog.csdn.net/lccever/article/details/80535058 
-	
+	You need to set an additional parameter "device" : "gpu". From https://blog.csdn.net/lccever/article/details/80535058
+
 		git clone https://github.com/guolinke/boosting_tree_benchmarks.git
-		
+
 		cd boosting_tree_benchmarks/data
-		
+
 		wget "https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz"
-		
+
 		gunzip HIGGS.csv.gz
-		
+
 		python higgs2libsvm.py
-	
+
 	Sample test codes:
-	
+
 		import lightgbm as lgb
 		import time
-		 
-		 
+
+
 		params = {'max_bin': 63,
 		'num_leaves': 255,
 		'learning_rate': 0.1,
@@ -158,8 +158,8 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		'device': 'gpu',
 		'gpu_platform_id': 0,
 		'gpu_device_id': 0}
-		 
-		 
+
+
 		dtrain = lgb.Dataset('data/higgs.train')
 		t0 = time.time()
 		gbm = lgb.train(params, train_set=dtrain, num_boost_round=10,
@@ -170,10 +170,10 @@ for Windows machine. On Linux machine, the steps will be simpler.
 				  verbose_eval=True,
 				  keep_training_booster=False, callbacks=None)
 		t1 = time.time()
-		 
+
 		print('gpu version elapse time: {}'.format(t1-t0))
-		 
-		 
+
+
 		params = {'max_bin': 63,
 		'num_leaves': 255,
 		'learning_rate': 0.1,
@@ -186,7 +186,7 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		'sparse_threshold': 1.0,
 		'device': 'cpu'
 		}
-		 
+
 		t0 = time.time()
 		gbm = lgb.train(params, train_set=dtrain, num_boost_round=10,
 				  valid_sets=None, valid_names=None,
@@ -196,19 +196,19 @@ for Windows machine. On Linux machine, the steps will be simpler.
 				  verbose_eval=True,
 				  keep_training_booster=False, callbacks=None)
 		t1 = time.time()
-		 
+
 		print('cpu version elapse time: {}'.format(t1-t0))
 
-        See: https://blog.csdn.net/lccever/article/details/80535058 
-		
+        See: https://blog.csdn.net/lccever/article/details/80535058
+
 5.	(Optional for installing tensorflow under conda environment) Install CUDA and cuDNN (using CUDA 9.0 as example)
-		 Download CUDA from https://developer.nvidia.com/cuda-90-download-archive, 
+		 Download CUDA from https://developer.nvidia.com/cuda-90-download-archive,
 		 Including base installer and all patches, install them sequentially.
-		 
+
 		 Download cuDNN library from https://developer.nvidia.com/rdp/cudnn-download, choose
-			
+
 			Download cuDNN v7.4.2 (Dec 14, 2018), for CUDA 9.2
-		
+
 		Once the download is done, open the zip file and go into the binfolder.
 		You should see the cudnn64_7.dll file.
 
@@ -228,33 +228,33 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		Then it will ask if you want to merge, click yes.
 
 6.	Install tensorflow (as of DEC 22 2018, tensorflow does support python 3.7 yet.)
-		
+
 		conda install -c anaconda tensorflow-gpu
-		
+
 		Note: use the -c flag to specify the "anaconda" "channel"
-		
+
 		Check That TensorFlow is working with your GPU
-		
+
 			>>> import tensorflow as tf
 			>>> hello = tf.constant('Hello, TensorFlow!')
 			>>> sess = tf.Session()
 			>>> print(sess.run(hello))
 
 7.	Create a Jupyter Notebook Kernel for the new environment yourenvname
-	
+
 	With your yourenvname environment activated do,
-	
+
 		conda install ipykernel
 		python -m ipykernel install --user --name yourenvname --display-name "YourEnvName"
-		
+
 	For more details follow: https://ipython.readthedocs.io/en/stable/install/kernel_install.html
-		
+
 8. Install Keras
 
 	conda install keras-gpu
-	
+
 	MNIST example
-	Following are Python snippets you can copy into cells in your Jupyter notebook to setup 
+	Following are Python snippets you can copy into cells in your Jupyter notebook to setup
 	and train LeNet-5 with MNIST digits data.
 
 	Import dependencies
@@ -286,7 +286,7 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		model.add(Conv2D(64, kernel_size=(3,3), activation='relu'))
 		model.add(MaxPooling2D(pool_size=(2,2)))
 		model.add(Dropout(0.25))
-		model.add(Flatten())          
+		model.add(Flatten())
 		model.add(Dense(128, activation='relu'))
 		model.add(Dropout(0.5))
 		model.add(Dense(n_classes, activation='softmax'))
@@ -299,106 +299,106 @@ for Windows machine. On Linux machine, the steps will be simpler.
 				  validation_data=(X_test,y_test), callbacks=[tensor_board])
 
 	Look at the job run with TensorBoard:
-	
+
 		You will need "bleach" for TensorBoard so install it first,
-		
+
 			conda install bleach
-			
+
 		Start TensorBoard
-		
+
 			tensorboard --logdir=./logs --host localhost --port 8088
 
 9.	Install Pytorch
 
 		For more details follow: https://pytorch.org/get-started/locally/, for CUDA 9.0, use
-		
+
 			conda install pytorch torchvision -c pytorch
-		
+
 		For CUDA 10.0, use
-			
+
 			conda install pytorch torchvision cuda100 -c pytorch
 
 10.	Install XGBoost: for details follow: https://xgboost.readthedocs.io/en/latest/build.html#
 
-	Method 1: 
-	
+	Method 1:
+
 		Pre-built binary wheel for Python
 
-		If you are planning to use Python, consider installing XGBoost from a pre-built binary wheel, 
+		If you are planning to use Python, consider installing XGBoost from a pre-built binary wheel,
 		available from Python Package Index (PyPI). You may download and install it by running
 
 			# Ensure that you are downloading one of the following:
 			#   * xgboost-{version}-py2.py3-none-manylinux1_x86_64.whl
 			#   * xgboost-{version}-py2.py3-none-win_amd64.whl
 			pip3 install xgboost
-			
-		The binary wheel will support GPU algorithms (gpu_exact, gpu_hist) on machines with NVIDIA GPUs. 
-		However, it will not support multi-GPU training; only single GPU will be used. 
-		To enable multi-GPU training, download and install the binary wheel from 
-		
+
+		The binary wheel will support GPU algorithms (gpu_exact, gpu_hist) on machines with NVIDIA GPUs.
+		However, it will not support multi-GPU training; only single GPU will be used.
+		To enable multi-GPU training, download and install the binary wheel from
+
 			https://s3-us-west-2.amazonaws.com/xgboost-wheels/list.html.
-		
+
 		Currently, we provide binary wheels for 64-bit Linux and Windows.
-		
+
 	Method 2: Lighter version:
-	
-		Download XGBoost Windows x64 Binaries and Executables from: 
-		
+
+		Download XGBoost Windows x64 Binaries and Executables from:
+
 			http://www.picnet.com.au/blogs/guido/2016/09/22/xgboost-windows-x64-binaries-for-download/
-			
+
 		select GPU enabled.
-		
+
 		Then follow command:
-		
+
 			git clone hhttps://github.com/dmlc/xgboost.git
-			
+
 			copy libxgboost.dll (downloaded from previous step) into the xgboost/python-package/xgboost/
-			
+
 			cd python-package/
-			
+
 			python setup.py install
-	
+
 	Method 3: Ultimate method: https://xgboost.readthedocs.io/en/latest/build.html#
-	
+
 		Difference between Method 3 and Method 2 is: Method 3 build libxgboost.dll from scracth using
 		C++ complier, installed with Visual Studio (when install VS, make sure select all C++ compliers,
 		make "Modify" through Visual Studio Installer).
-			
+
 			git clone --recursive https://github.com/dmlc/xgboost
-			
+
 		For windows users:
-			
+
 			cd xgboost
-			
+
 			git submodule init
-			
+
 			git submodule update
 
 		XGBoost support compilation with Microsoft Visual Studio and MinGW. Here we use Visual Studio
-		
+
 			mkdir build
-			
+
 			cd build
-			
+
 			cmake .. -G"Visual Studio 15 2017 Win64" -DUSE_CUDA=ON
 
         Note Visual Studio 2017 Win64 Generator may not work because complier v140 is not included
 
-		Choosing the Visual Studio 2017 generator may cause compilation failure. 
+		Choosing the Visual Studio 2017 generator may cause compilation failure.
 		When it happens, specify the 2015 compiler by adding the -T option:
 
 			cmake .. -G"Visual Studio 15 2017 Win64" -T v140,cuda=9.2 -DR_LIB=ON -DUSE_CUDA=ON
-			
-		The above cmake configuration run will create an xgboost.sln solution file in the build directory. 
+
+		The above cmake configuration run will create an xgboost.sln solution file in the build directory.
 		Build this solution in release mode as a x64 build, either from Visual studio or from command line:
-		
+
 			cmake --build . --target xgboost --config Release
-			
+
 		Python Package Installation
-		
+
 		    python setup.py install
-		
-		
+
+
 	Sample code for validating XGBoost installation:
 
 		# code: https://github.com/dmlc/xgboost/blob/master/demo/gpu_acceleration/cover_type.py
@@ -443,13 +443,13 @@ for Windows machine. On Linux machine, the steps will be simpler.
 		cpu_res = {}
 		xgb.train(param, dtrain, num_round, evals=[(dtest, 'test')], evals_result=cpu_res)
 		print("CPU Training Time: %s seconds" % (str(time.time() - tmp)))
-			
+
 
 11. Build python package(using cookiecutter) that is pip-installable:
 
 	Step1. 	$ pip install cookiecutter
-		$ cookiecutter https://github.com/wdm0006/cookiecutter-pipproject.git
-                
+		$ cookiecutter https://github.com/yaowang74/cookiecutter-pipproject.git
+
                 There are many other templates, find templates at https://github.com/audreyr/cookiecutter
                 When all basic information about your package are provided to cookiecutter template,
                 a simple structure will be established, modify contents of files such as LICENSE, README
@@ -459,12 +459,12 @@ for Windows machine. On Linux machine, the steps will be simpler.
 
 	Step3.	python setup.py sdist bdist_wheel
 		This command should output a lot of text and once completed should generate two files in the dist directory:
-		The tar.gz file is a source archive whereas the .whl file is a built distribution. 
+		The tar.gz file is a source archive whereas the .whl file is a built distribution.
 
 	Step4.	You can install the .whl file using pip: python -m pip install dist/<package-name>.whl
 		in conca environment, this is will be: pipinstall dist/<package-name>.whl
 
-	For more information: look at https://wheel.readthedocs.io/en/stable/quickstart.html 
+	For more information: look at https://wheel.readthedocs.io/en/stable/quickstart.html
 
 
 12.	Using Jupyter lab on remote machine:
@@ -476,7 +476,7 @@ for Windows machine. On Linux machine, the steps will be simpler.
 13.     Solution for proxy setting cause CondaHTTPError: HTTP 000 CONNECTION FAILED for URL ...
 
         Step1: Update C:\Users\\username\.condarc file with the following (has to be yaml syntex):
-        
+
         channels:
           - defaults
         ssl_verify: false
@@ -487,4 +487,3 @@ for Windows machine. On Linux machine, the steps will be simpler.
         Step2: in anaconda prompt conda config --set ssl_verify false
 
         Note that .condarc has to be in yaml syntex, use notepad not notepad++.
-	
