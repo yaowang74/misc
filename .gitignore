@@ -10,6 +10,7 @@
 *.bbl
 *.blg
 
+out/
 logs/
 .ipynb_checkpoints/
 .idea/

@@ -1,19 +1,26 @@
+package com.practice.crackcode;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class practice {
+public class Practice {
+    public static void main(String[] args) {
+        System.out.println("This is JAVA practice.");
+        int[] nums = new int[] {1,2,3,4,5,6,7};
+        int target = 9;
+        int[] results = new int[7];
 
-    public static void practice (String[] args) {
-        System.out.println("This is Java practice");
+        results = twoSum(nums, target);
+        System.out.println(results);
     }
 
-    public int[] twoSum(int[] nums, int target) {
+    public static int[] twoSum(int[] nums, int target) {
         /*
-        * Assumptions:
-        * 1. each input would have exactly one solution
-        * 2. you may not use same element twice
-        * 3. sorted in ascending order
-        * */
+         * Assumptions:
+         * 1. each input would have exactly one solution
+         * 2. you may not use same element twice
+         * 3. sorted in ascending order
+         * */
         if (nums == null || nums.length < 2) {
             return new int[0];
         }
