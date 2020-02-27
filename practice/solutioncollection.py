@@ -35,7 +35,7 @@ class SolutionCollection:
     New solution date(if new solution):
     """
 
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: list, target: int):
         """
         Parameters
         ---------------
@@ -56,3 +56,44 @@ class SolutionCollection:
                     return [j, i]
 
             mapping[e] = i
+
+    def stringPermutation(self, string: str, start: int, end: int):
+        """
+        Output all permutations of a given string.
+
+        Parameters
+        ------------
+        string: str. Input string
+        start: int. Start position of the string
+        end: int. End position of the string
+
+        Returns
+        ------------
+        list. List of all permutation of a string
+
+        """
+        assert start >= 0 and end <= len(string)
+
+        def toString(lst: list):
+            """
+
+            Parameters
+            ----------
+            List: list.
+
+            Returns
+            -------
+
+            """
+            return ''.join(lst)
+
+        if start == end:
+            print(toString(list(string)))
+
+        else:
+            for i in range(start, end+1):
+                string[start], string[i] = string[i], string[start]
+                self.stringPermutation(string, start+1, end)
+
+                string[start], string[i] = string[i], string[start]
+
