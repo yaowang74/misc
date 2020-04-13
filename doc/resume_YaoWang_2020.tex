@@ -1,0 +1,287 @@
+%% start of file `template.tex'.
+%% Copyright 2006-2013 Xavier Danaux (xdanaux@gmail.com).
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License version 1.3c,
+% available at http://www.latex-project.org/lppl/.
+
+
+\documentclass[11pt,a4paper,sans]{moderncv}        % possible options include font size ('10pt', '11pt' and '12pt'), paper size ('a4paper', 'letterpaper', 'a5paper', 'legalpaper', 'executivepaper' and 'landscape') and font family ('sans' and 'roman')
+
+% modern themes
+\moderncvstyle{banking}                            % style options are 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue}                                % color options 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+\moderncvicons{awesome}                         % <icon set> can be awesome, marvosym or letters (letter icons, used by default in the oldstyle style variant).
+%\renewcommand{\familydefault}{\sfdefault}         % to set the default font; use '\sfdefault' for the default sans serif font, '\rmdefault' for the default roman one, or any tex font name
+%\nopagenumbers{}                                  % uncomment to suppress automatic page numbering for CVs longer than one page
+
+% character encoding
+\usepackage[utf8]{inputenc}                       % if you are not using xelatex ou lualatex, replace by the encoding you are using
+%\usepackage{CJKutf8}                              % if you need to use CJK to typeset your resume in Chinese, Japanese or Korean
+%\usepackage{fontawesome}
+% adjust the page margins
+\usepackage[scale=0.80]{geometry}                  % change scale to adjust ratio, original scale=0.75
+%\setlength{\hintscolumnwidth}{3cm}                % if you want to change the width of the column with the dates
+%\setlength{\makecvtitlenamewidth}{10cm}           % for the 'classic' style, if you want to force the width allocated to your name and avoid line breaks. be careful though, the length is normally calculated to avoid any overlap with your personal info; use this at your own typographical risks...
+
+\usepackage{import}
+
+% personal data
+\name{Wang}{Yao}
+%\title{Machine Learning}                               % optional, remove / comment the line if not wanted
+%\address{2432 West Broadway}{Vancouver}{BC}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+\phone[mobile]{732 447 6825}                   % optional, remove / comment the line if not wanted
+%\phone[fixed]{01234 123456}                    % optional, remove / comment the line if not wanted
+%\phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
+\email{yaowang74@gmail.com}                               % optional, remove / comment the line if not wanted
+%\homepage{www.myname.webs.com}                         % optional, remove / comment the line if not wanted
+\extrainfo{U.S. Citizen}                 % optional, remove / comment the line if not wanted
+%\photo[64pt][0.4pt]{picture}                       % optional, remove / comment the line if not wanted; '64pt' is the height the picture must be resized to, 0.4pt is the thickness of the frame around it (put it to 0pt for no frame) and 'picture' is the name of the picture file
+%\quote{Some quote}                                 % optional, remove / comment the line if not wanted
+
+% to show numerical labels in the bibliography (default is to show no labels); only useful if you make citations in your resume
+%\makeatletter
+%\renewcommand*{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}
+%\makeatother
+%\renewcommand*{\bibliographyitemlabel}{[\arabic{enumiv}]}% CONSIDER REPLACING THE ABOVE BY THIS
+
+% bibliography with mutiple entries
+%\usepackage{multibib}
+%\newcites{book,misc}{{Books},{Others}}
+%----------------------------------------------------------------------------------
+%            content
+%----------------------------------------------------------------------------------
+\begin{document}
+%\begin{CJK*}{UTF8}{gbsn}                          % to typeset your resume in Chinese using CJK
+%-----       resume       ---------------------------------------------------------
+\makecvtitle
+\vspace*{-8mm}
+\small{With 7+ years of research and industrial working experience in machine learning and advanced data analysis, as well as rich experience in customer engaging, project management, and full life-cycle data science product deployment, I am passionate about solving business problems by applying various advanced analytical techniques, communicating effectively with clients and implementing innovative solutions. }
+
+%Strong understanding of data structures and algorithms.
+%Strong understanding statistical learning theory.
+%Strong understanding of convex or non-convex optimization.
+%Experience developing new machine learning algorithms.
+%Ability to prove generalization guarantees for some commonly used algorithms.
+
+
+\section{Education}
+
+\vspace{4pt}
+%
+%\subsection{Academic Qualifications}
+%
+%\vspace{4pt}
+
+\begin{itemize}
+	
+	\item{\cventry{2010-2016}{Mathematical optimization, nonlinear optimization algorithms for machine learning %Numerical optimization methods for solving large-scale machine learning problems
+		}{\textbf{Ph.D.} \textit{Operations Research}, Rutgers University}{New Brunswick, NJ}{}{}}
+	
+	\item{\cventry{2006-2010}{\emph{Magna Cum Laude}}{\textbf{B.A.} \textit{\textbf{Mathematics}, Minor: \textbf{Statistics}}, Rutgers University}{New Brunswick, NJ}{}{}}  % arguments 3 to 6 can be left empty
+	
+\end{itemize}
+
+
+\section{Work Experience}
+
+\vspace{4pt}
+
+\begin{itemize}
+
+	\item{\cventry{March 2019--Present}{Senior Associate Researcher}{NEC Laboratories America Inc.}{Princetons, NJ}{}
+		{\vspace{3pt}
+			\begin{itemize}
+				\item \emph{Lockheed Martin - Space:} Deep tempora point process and its application in system event modeling, categorical time series and log analysis.
+				\item Statellite anomaly detection and classification with LSTM and telemetry data. Satllite maneuver recognition and prediction
+				\item \emph{Sikorsky} POC: S-92 abnormal flight jobs identification through system invariant method. Helicopter transfer learning, anomally detection
+				\item POC: Human activity recognition through optical sensing data, wavelet transform and 1D convolutional neural netowrk based solution
+			\end{itemize}}}
+
+	\item{\cventry{October 2016--March 2019}{Senior Data Scientist}{Honeywell International Inc.}{Morris Plains, NJ}{}
+		{\vspace{3pt}
+			\begin{itemize}
+				\item \emph{FreshDirect} equips Honeywell's most advanced IoT conveyor belt system and warehouse excution system(WES)
+				\item Led a team of data scientists and engineers, designed and built entire pipeline with Python for insight analysis that contains four major modules: data loader(SQL library), feature engine(parallel massive data transformation), 
+				%gpu accelarated(\textbf{Azure NC12 v2}) gradient boosting tree training and visualization module for key KPIs
+				%together with other Honeywell's warehouse engineering teams to improve daily totes throughput, 
+				\item Established pick time and order process time estimation models at pick-up station level, retrain both hourly
+				\item Successfully solved system workload balance issue by building a stacked model that predicts correct tote's "tee-off" time based on pick time and order process time models
+				\item Dramatically enhanced WES by implementing dynamic routing algorithm: instead of using fixed conveyor segment length, leveraging outputs from models to produce average dwell time for each segment, and  redefined system logical graph with dynamic weight(dwell time) to convert WES shortest path engine to dynamic routing engine
+				\item \emph{FreshDirect} daily tote throughput increased from about 7000 to approximately 15000 with 98\% on-time and in-full rate when project was completed
+				\item Employed business goals to guide data science practice in \emph{Non-Technical Loss}(NTL, a.k.a energy theft) detection project, engaged with the clients, data scientists and implementation team in presenting, mentoring and advising 
+				\item Led data engineers in India to clean and ingest over 1T raw smart meter data into Hive (\textbf{Azure} backended)
+%				\item With \textbf{R} I implemented a \textbf{RBF Neural Network} model for short-term power load \textbf{time series} prediction
+				\item Performed large scale statistical analysis and profiling to segregate population by utilizing external property and weather data on cluster with sparklyr, trained energy consumption model on both of segment and meter level
+				%\item  for specifying abnormal observations to convert extremely imbalanced population into balanced training dataset
+				%\item Mentoring a junior data scientist on coding and determining optimal threshold for filtering
+				\item Built and deployed an energy theft detection model on Honeywell IoT cloud using features from smart meter events/status data and derived metrics from energy consumption model outputs
+				\item This is the first commercialized analytical solution delivered by \emph{Honeywell Connected Enterprise}, it helped \emph{Memphis Light, Gas and Water} to recover at least 3\% of their revenue and reduce operational cost by 30\%
+			\end{itemize}}}
+
+	\vspace{4pt}
+
+	\item{\cventry{May 2015--October 2016}{Actuarial Data Scientist}{Chubb Limited}{Basking Ridge, NJ}{}
+		{\vspace{3pt}
+			\begin{itemize}
+				\item Performed data ETL and modeling jobs on bodily injury(BI) claims/medical data for 7-Eleven with SAS EG
+				\item Built two sequential ordered BI severity models for different moments in the life of a claim(at first contact and at 6-month evaluation point) respectively to classify if total incured cost of a claim beyond ten thousands dollar 
+				\item Compared to subjective classification used in practice, new models leads to significant improvements in the prediction of BI severity level and therefore greately improved insurer's reserves for those claims
+				%\item Many companies estimate (and therefore reserve) bodily injury compensation directly from initial medical reports. This practice may underestimate the final cost, because the severity is often assessed during the recovery period. Since the evaluation of this severity is often only qualitative, in this paper we apply an ordered multiple choice model at different moments in the life of a claim reported to an insurance company. We assume that the information available to the insurer does not flow continuously, because it is obtained at different stages. Using a real data set, we show that the application of sequential ordered logit models leads to a significant improvement in the prediction of the BI severity level, compared to the subjective classification that is used in practice. We also show that these results could improve the insurer’s reserves notably.
+				\item Created SAS macros to monitor key metircs distribution between input scoring data and training data, tracking outputs from production and development environment and measuring production model performance 
+				\item  Loaded and transformed raw survey data with R to conduct professional network analysis 
+				\item According to the network structure, created social network features by calculating various network metrics for each underwriter and professional features using other performance metrics
+				%\item  %and provided actionable solutions to help underwriters create more revenue by a margin of 10\% % improving their professional network structure
+				\item With revenue created by each underwriter, I established a preliminary network-revenue model and provided actionable solutions to help underwriters identify more revenue opportunities by improving their professional network structure 
+		    \end{itemize}}}
+
+	\vspace{4pt}
+
+	\item{\cventry{May 2014--August 2014}{Intern, Integrated Advanced Analytics}{Novartis Pharmaceuticals}{East Hanover, NJ}{}
+		{\vspace{3pt}
+			\begin{itemize}\itemsep -1 pt
+				%\item Implemented a web application 
+				%			\item Programmed the effective plotting interface for understanding and interpreting modeling work
+%				\item Learned data science(PK/PD) models in pharmacometics and web development techniques using  \textbf{Apache} web server, \textbf{MySQL}, \textbf{Python}, \textbf{R}, \textbf{Javascript} and \textbf{HTML5} %Greatly reduced the overhead of communication between clinicians and  pharmacometricians					
+				%\item Developed and designed web application for clinicians to compare simulation results and test hypothesis using \textbf{Linux}, \textbf{Apache} web server, along with \textbf{MySQL}, \textbf{Python} and \textbf{R} on back-end;  \textbf{Javascript}  and \textbf{D3.js} for front-end visualization 
+				\item %Learned basic PK/PD models, applied quantitative methods  for dose escalation and selection in clinical  trials. 
+				Designed and implemented an interactive web application for clinicians to compare simulation results based on PK/PD models on dosage selection for different groups of patients
+				\item This web application effectively reduced communication overhead between clinicians and research scientist  
+				%\item Greatly reduced the overhead of communication between clinicians and pharmacometricians
+			\end{itemize}}}
+
+	\vspace{4pt}
+
+	\item{\cventry{January 2013--June 2013}{Student Researcher}{Department of Homeland Security-Rutgers CoE (CCICADA)}{Piscataway, NJ}{}
+		{\vspace{3pt}
+			\begin{itemize}
+				\item Captured key U.S. Coast Guard(USCG) operational information through intensive three-day workshops
+				\item Successfully formulated a preliminary integer programming model that solves USCG boat sharing problem
+%				\item Analyzed and visualized complex data from USCG, finalized the optimal boat-sharing integer programming model %that generates various schemes with different parameters
+				%\item Presented the briefings to upper management monthly and drafted the guidance on the project
+				\item I provided the best boat-sharing plan for USCG to cover required mission hours under tight budget by sovling the model with \textbf{Xpress-Mosel}, and presented the analysis and delivered the product to USCG leaders %monthly and drafted the guidance on the project. 
+			\end{itemize}}}
+
+	\vspace{4pt}
+
+	\item{\cventry{Summer 2012, July 2013--December 2013}{Process Science Intern, Manufacturing Technology}{Eli Lilly and Company}{Bridgewater, NJ}{}
+		{\vspace{3pt}
+		    \begin{itemize}\itemsep -1 pt
+				\item Created optimized and validated \textbf{SQL} library for Bio-process Data Collection System Data Mart(BDCSDM) %and enhanced the data visualization application by adding new practical features with \textbf{.NET}
+				\item Built an application to visualize sensor data from entire manufacturing process that is completely BDCSDM driven so that effort of maintenance is minimized
+				%           \item Significantly advanced the level of automation and user-friendliness of Excel data visualization application to minimize the effort of maintenance 
+				\item Investigated and resolved data communication issues in a new data acquisition system, securing data output%Probe and successfully fix the indication error in the new data acquisition system that may cause serious consequences
+				%           \item Leveraged LabView software to independently develop and test an application that automatically allows execution and data acquisition of five simultaneous filtration experiments
+				%\item Independently developed an automatic data acquisition program for five filtration experiments
+				%           \item Fully utilized the advanced equipment by providing programming support and hence greatly reduced the cost of human resources
+				\item Developed automated filtration experiment data acquisition application to interface with previously under-utilized costly advanced \textbf{IoT} equipments hence greatly reduced the cost of human resources %and created manuals for both data visualization and acquisition applications to aid users and developers
+				%\item Created manuals for both data visualization and acquisition applications to aid users and developers
+			\end{itemize}}}
+
+	\vspace{4pt}
+
+	\item{\cventry{2010-2012}{Lecturer, Introduction to Calculus for Engineering Students}{Department of Mathematical Science, Rutgers University}{New Brunswick, NJ}{}{}}
+
+\end{itemize}
+
+%\vspace{2pt}
+
+%\section{Research}
+%
+%\vspace{4pt}
+%
+%\begin{itemize}
+%	\item My research is focused on large scale data-driven mathematical optimization, developing nonlinear optimization algorithms for solving separable multi-block convex minimization problems with applications in machine learning and data mining. 
+%	
+%%	\vspace{4pt}
+%%	\item \textbf{Dissertation}: Approximate Versions of Alternating Method of Multipliers
+%	
+%	\vspace{4pt}
+%	
+%	\item Alternating direction method of multipliers(ADMM) has been one of most powerful and successful methods for solving  two-block convex minimization model whose objective function is the sum of loss function and regularization term
+%	
+%\end{itemize}
+
+
+%\section{Teaching}
+%
+%\vspace{4pt}
+%
+%\begin{itemize}
+%	\item{\cventry{2010-2012}{Lecturer, Introduction to Calculus for Engineering Students}{Department of Mathematical Science, Rutgers University}{New Brunswick, NJ}{}{}}
+%
+%\end{itemize}
+
+\section{Selected Honors \& Awards}
+
+\vspace{4pt}
+
+\begin{itemize}
+	
+\item{\cventry{December 2017, 2018}{Excellence in performance}{Gold Award}{Honeywell International Inc.}{}{}}
+
+\item{\cventry{July 2017}{NTL commercialization, mentorship and collaboration}{Silver Award}{Honeywell International Inc.}{}{}}
+
+\item{\cventry{December 2016}{Platform evaluation on C3IoT, RapidMiner}{Star Award}{Honeywell International Inc.}{}{}}
+
+%\item{\textbf{Excellence Fellowship from Rutgers Center for Operations Research}  \hfill 2010-2011}
+%
+%\item{\textbf{Dean's List}, Rutgers College \hfill 2007-2009}
+%
+%\item{\textbf{Delta Epsilon Iota}, Academic Honor Society at Rutgers University \hfill 2007-Present}
+%
+%\item{\textbf{Pi Theta Kappa}, National Honor Society  \hfill  2006-Present}
+\end{itemize}
+
+
+%\section{References}
+%
+%\vspace{4pt}
+% 
+%\begin{itemize}
+%
+%\item{Up to 3 references available on request}
+%
+%\end{itemize}
+
+
+%% Publications from a BibTeX file without multibib
+%%  for numerical labels: \renewcommand{\bibliographyitemlabel}{\@biblabel{\arabic{enumiv}}}% CONSIDER MERGING WITH PREAMBLE PART
+%%  to redefine the heading string ("Publications"): \renewcommand{\refname}{Articles}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{publications}                        % 'publications' is the name of a BibTeX file
+
+% Publications from a BibTeX file using the multibib package
+%\section{Publications}
+%\nocitebook{book1,book2}
+%\bibliographystylebook{plain}
+%\bibliographybook{publications}                   % 'publications' is the name of a BibTeX file
+%\nocitemisc{misc1,misc2,misc3}
+%\bibliographystylemisc{plain}
+%\bibliographymisc{publications}                   % 'publications' is the name of a BibTeX file
+
+%-----       letter       ---------------------------------------------------------
+
+
+%\section{Education}
+%
+%\vspace{5pt}
+%%
+%%\subsection{Academic Qualifications}
+%%
+%%\vspace{5pt}
+%
+%\begin{itemize}
+%	
+%	\item{\cventry{2010-2016}{Mathematical optimization, nonlinear optimization algorithms for machine learning %Numerical optimization methods for solving large-scale machine learning problems
+%		}{\textbf{Ph.D.} \textit{Operations Research}, Rutgers University}{New Brunswick, NJ}{}{}}
+%	
+%	\item{\cventry{2006-2010}{\emph{Magna Cum Laude}}{\textbf{B.A.} \textit{\textbf{Mathematics}, Minor: \textbf{Statistics}}, Rutgers University}{New Brunswick, NJ}{}{}}  % arguments 3 to 6 can be left empty
+%	
+%\end{itemize}
+
+\end{document}
+
+
+%% end of file `template.tex'.
