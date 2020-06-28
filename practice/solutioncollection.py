@@ -97,3 +97,52 @@ class SolutionCollection:
 
                 string[start], string[i] = string[i], string[start]
 
+
+
+
+
+
+
+
+
+
+
+
+
+def deleteProduct(ids: list, m: int):
+    """
+    
+    """
+    assert 1<= len(ids) <= 100000
+    assert all([1<=i<=1000000 for i in ids])
+    assert 1<= m <= 100000
+    assert sum(ids) > m
+    
+    ids_dict = {}
+    
+    for i in ids:
+        if i in ids_dict:
+            ids_dict.update({i:ids_dict.get(i)+1})
+        else:
+            ids_dict.update({i: 1})
+    
+    ids_sorted = sorted(ids_dict.items(), key=lambda x: x[1], reverse=False)
+    
+    ids_dict_sorted = {k[0]:k[1] for k in ids_sorted}
+    
+    ids_array = [0 for _  in range(sum(ids_dict.values()))]
+
+    for l, item in enumerate(ids_dict_sorted.items()):
+        
+        if l == 0:
+            old = 0
+        
+        for i in range(item[1]):
+            ids_array[old + i] = item[0]
+        
+        old += item[1]
+
+    return len(set(ids_array[m:]))
+    
+
+deleteProduct([2, 4, 1, 5, 3, 5, 1, 3], 5)

@@ -29,7 +29,7 @@
 % personal data
 \name{Wang}{Yao}
 %\title{Machine Learning}                               % optional, remove / comment the line if not wanted
-%\address{2432 West Broadway}{Vancouver}{BC}% optional, remove / comment the line if not wanted; the "postcode city" and and "country" arguments can be omitted or provided empty
+%\address{2432 West Broadway}{Vancouver}{BC}% optional, remove / comment the line if not wanted; the "postcode city" and "country" arguments can be omitted or provided empty
 \phone[mobile]{732 447 6825}                   % optional, remove / comment the line if not wanted
 %\phone[fixed]{01234 123456}                    % optional, remove / comment the line if not wanted
 %\phone[fax]{+3~(456)~789~012}                      % optional, remove / comment the line if not wanted
@@ -92,25 +92,29 @@
 	\item{\cventry{March 2019--Present}{Senior Data Scientist}{NEC Laboratories America Inc.}{Princetons, NJ}{}
 		{\vspace{3pt}
 			\begin{itemize}
-				\item Developing deep temporal point process model that potentially can be used for cyber-physical system events modeling, categorical time series analysis and log data analysis.
-				\item Collaborated with \emph{Lockheed Martin} on satellite anomaly detection, classification and maneuver recognition, successfully delivered novel solution that based on deep hashing and LSTM feature extraction  
-				\item Implemented entire ETL pipeline for helicopter(S-92) sensors and events data, developed a data-driven algorithm for abnormal S-92 flight jobs identification through unsupervised system invariant analysis, ranked sensors by identifying significant broken invariants 
-				\item Designed and impeemented wavelet transform and 1D CNN based solution for human activity recognition and intrusion detection with optical sensing waterfall data 
+				\item Closely worked with \emph{Lockheed Martin} satellite operators and engineers to fully understand  types and causes of spacecraft anomalies, identified existing challenges in current technologies for anomaly root cause analysis
+				\item Performed extensive data analysis on telemetry time series data collected from multiple commercial satellites, recognized and verified patterns for different anomalies, identified precursors in signals of satellite maneuvers, formulated LSTM based sliding window retrieval solution for maneuver prediction and anomaly detection
+				\item Attended joint workshop on applying AI techniques to deep space exploration mission, learned that current difficulties in modeling large number of categorical sensors in spacecraft, reviewed related literatures, formulated problem as multi-dimensional events modeling problem, proposed and implemented prototype of deep temporal point process solution for modeling high dimensional categorical sensors data
+				\item Deployed solution for each subsystem of the satellite and produce comprehensive insights of the entire system, various POC tasks proved effectiveness by successfully predicting satellite events and detecting rare anomalies
+				%\item Implemented entire ETL pipeline for helicopter(S-92) sensors and events data, developed a data-driven algorithm for abnormal S-92 flight jobs identification through unsupervised system invariant analysis, ranked sensors by identifying significant broken invariants 
 			\end{itemize}}}
 
 	\item{\cventry{October 2016--March 2019}{Senior Data Scientist}{Honeywell International Inc.}{Morris Plains, NJ}{}
 		{\vspace{3pt}
 			\begin{itemize}
-				\item \emph{FreshDirect} equips Honeywell's most advanced IoT conveyor belt system and warehouse execution system(WES)
-				\item Led a team of data scientists and engineers, designed and built entire pipeline with Python for insight analysis that contains four major modules: data loader(SQL library), feature engine(parallel massive data transformation), 
-				%gpu accelarated(\textbf{Azure NC12 v2}) gradient boosting tree training and visualization module for key KPIs
+				\item Directly joined warehouse operation team of \emph{FreshDirect} to learn bottleneck in warehouse management and execution systems delivered by Honeywell
+				%\item Identified one crucial issue that causes orders congestion and conveyor belt unbalanced workload 
+				\item Led a team of data scientists and engineers, designed and built entire pipeline with Python for insight analysis that contains data loader (SQL library), feature extraction engine, feature ranking with and KPI visualization
+				%gpu accelerated(\textbf{Azure NC12 v2}) gradient boosting tree training and visualization module for key KPIs
 				%together with other Honeywell's warehouse engineering teams to improve daily totes throughput, 
-				\item Established pick time and order process time estimation models at pick-up station level, retrain both hourly
-				\item Successfully solved system workload balance issue by building a stacked model that predicts correct tote's "tee-off" time based on pick time and order process time models
-				\item Dramatically enhanced WES by implementing dynamic routing algorithm: instead of using fixed conveyor segment length, leveraging outputs from models to produce average dwell time for each segment, and  redefined system logical graph with dynamic weight(dwell time) to convert WES shortest path engine to dynamic routing engine
+				%\item Established pick time and order process time estimation models at pick-up station level, retrain both hourly
+				\item Significantly corrected workload unbalancing issue by building a prediction model that can accurately estimate each order's "tee-off" time based on pick time and order process time models
+				\item Engaged in warehouse execution engineers to implement dynamic routing by leveraging order dwell time prediction model and use it as dynamic distance to convert shortest path engine to dynamic routing engine
 				\item \emph{FreshDirect} daily tote throughput increased from about 7000 to approximately 15000 with 98\% on-time and in-full rate when project was completed
+			\end{itemize}
+		    \begin{itemize}
 				\item Employed business goals to guide data science practice in \emph{Non-Technical Loss}(NTL, a.k.a energy theft) detection project, engaged with the clients, data scientists and implementation team in presenting, mentoring and advising 
-				\item Led data engineers in India to clean and ingest over 1T raw smart meter data into Hive (\textbf{Azure} backended)
+				\item Led data engineers in India to clean and ingest over 1T raw smart meter data into Hive ({Azure} backended)
 %				\item With \textbf{R} I implemented a \textbf{RBF Neural Network} model for short-term power load \textbf{time series} prediction
 				\item Performed large scale statistical analysis and profiling to segregate population by utilizing external property and weather data on cluster with sparklyr, trained energy consumption model on both of segment and meter level
 				%\item  for specifying abnormal observations to convert extremely imbalanced population into balanced training dataset
@@ -125,10 +129,10 @@
 		{\vspace{3pt}
 			\begin{itemize}
 				\item Performed data ETL and modeling jobs on bodily injury(BI) claims/medical data for 7-Eleven with SAS EG
-				\item Built two sequential ordered BI severity models for different moments in the life of a claim(at first contact and at 6-month evaluation point) respectively to classify if total incured cost of a claim beyond ten thousands dollar 
-				\item Compared to subjective classification used in practice, new models leads to significant improvements in the prediction of BI severity level and therefore greately improved insurer's reserves for those claims
+				\item Built two sequential ordered BI severity models for different moments in the life of a claim(at first contact and at 6-month evaluation point) respectively to classify if total incurred cost of a claim beyond ten thousands dollar 
+				\item Compared to subjective classification used in practice, new models leads to significant improvements in the prediction of BI severity level and therefore greatly improved insurer's reserves for those claims
 				%\item Many companies estimate (and therefore reserve) bodily injury compensation directly from initial medical reports. This practice may underestimate the final cost, because the severity is often assessed during the recovery period. Since the evaluation of this severity is often only qualitative, in this paper we apply an ordered multiple choice model at different moments in the life of a claim reported to an insurance company. We assume that the information available to the insurer does not flow continuously, because it is obtained at different stages. Using a real data set, we show that the application of sequential ordered logit models leads to a significant improvement in the prediction of the BI severity level, compared to the subjective classification that is used in practice. We also show that these results could improve the insurer’s reserves notably.
-				\item Created SAS macros to monitor key metircs distribution between input scoring data and training data, tracking outputs from production and development environment and measuring production model performance 
+				\item Created SAS macros to monitor key metrics distribution between input scoring data and training data, tracking outputs from production and development environment and measuring production model performance 
 				\item  Loaded and transformed raw survey data with R to conduct professional network analysis 
 				\item According to the network structure, created social network features by calculating various network metrics for each underwriter and professional features using other performance metrics
 				%\item  %and provided actionable solutions to help underwriters create more revenue by a margin of 10\% % improving their professional network structure
@@ -142,7 +146,7 @@
 			\begin{itemize}\itemsep -1 pt
 				%\item Implemented a web application 
 				%			\item Programmed the effective plotting interface for understanding and interpreting modeling work
-%				\item Learned data science(PK/PD) models in pharmacometics and web development techniques using  \textbf{Apache} web server, \textbf{MySQL}, \textbf{Python}, \textbf{R}, \textbf{Javascript} and \textbf{HTML5} %Greatly reduced the overhead of communication between clinicians and  pharmacometricians					
+%				\item Learned data science(PK/PD) models in pharmacometrics and web development techniques using  \textbf{Apache} web server, \textbf{MySQL}, \textbf{Python}, \textbf{R}, \textbf{Javascript} and \textbf{HTML5} %Greatly reduced the overhead of communication between clinicians and  pharmacometricians					
 				%\item Developed and designed web application for clinicians to compare simulation results and test hypothesis using \textbf{Linux}, \textbf{Apache} web server, along with \textbf{MySQL}, \textbf{Python} and \textbf{R} on back-end;  \textbf{Javascript}  and \textbf{D3.js} for front-end visualization 
 				\item %Learned basic PK/PD models, applied quantitative methods  for dose escalation and selection in clinical  trials. 
 				Designed and implemented an interactive web application for clinicians to compare simulation results based on PK/PD models on dosage selection for different groups of patients
@@ -155,11 +159,11 @@
 	\item{\cventry{January 2013--June 2013}{Student Researcher}{Department of Homeland Security-Rutgers CoE (CCICADA)}{Piscataway, NJ}{}
 		{\vspace{3pt}
 			\begin{itemize}
-				\item Captured key U.S. Coast Guard(USCG) operational information through intensive three-day workshops
+				\item Captured key U.S. Coast Guard (USCG) operational information through intensive three-day workshops
 				\item Successfully formulated a preliminary integer programming model that solves USCG boat sharing problem
 %				\item Analyzed and visualized complex data from USCG, finalized the optimal boat-sharing integer programming model %that generates various schemes with different parameters
 				%\item Presented the briefings to upper management monthly and drafted the guidance on the project
-				\item I provided the best boat-sharing plan for USCG to cover required mission hours under tight budget by sovling the model with \textbf{Xpress-Mosel}, and presented the analysis and delivered the product to USCG leaders %monthly and drafted the guidance on the project. 
+				\item I provided the best boat-sharing plan for USCG to cover required mission hours under tight budget by solving the model with \textbf{Xpress-Mosel}, and presented the analysis and delivered the product to USCG leaders %monthly and drafted the guidance on the project. 
 			\end{itemize}}}
 
 	\vspace{4pt}
@@ -174,7 +178,7 @@
 				%           \item Leveraged LabView software to independently develop and test an application that automatically allows execution and data acquisition of five simultaneous filtration experiments
 				%\item Independently developed an automatic data acquisition program for five filtration experiments
 				%           \item Fully utilized the advanced equipment by providing programming support and hence greatly reduced the cost of human resources
-				\item Developed automated filtration experiment data acquisition application to interface with previously under-utilized costly advanced \textbf{IoT} equipments hence greatly reduced the cost of human resources %and created manuals for both data visualization and acquisition applications to aid users and developers
+				\item Developed automated filtration experiment data acquisition application to interface with previously under-utilized costly advanced \textbf{IoT} equipment hence greatly reduced the cost of human resources %and created manuals for both data visualization and acquisition applications to aid users and developers
 				%\item Created manuals for both data visualization and acquisition applications to aid users and developers
 			\end{itemize}}}
 
