@@ -17,3 +17,5 @@ logs/
 practice/.idea/
 practice/.idea/dictionaries/
 practice/__pycache__/
+.DS_Store
+doc/resume_YaoWang_2020.docx
